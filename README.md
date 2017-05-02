@@ -2,7 +2,7 @@
 
 This is my dotemacs - configuration directory for Emacs. Super Cool!
 
-# Prerequisites
+# Prerequisites (Windows 10)
 
 ```bat
 choco install pt

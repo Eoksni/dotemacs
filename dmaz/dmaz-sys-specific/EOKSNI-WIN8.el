@@ -56,6 +56,7 @@
  '(select-enable-clipboard t)
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
+ '(split-height-threshold nil)
  '(tab-always-indent (quote complete))
  '(tooltip-mode nil)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))

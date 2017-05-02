@@ -6,10 +6,6 @@
 
 (require 'dmaz-package)
 
-;; (use-package saveplace
-;;   :init
-;;   (setq ))
-
 (require 'dmaz-completions)
 
 (require 'dmaz-window)
@@ -17,6 +13,8 @@
 (require 'dmaz-customize-after)
 
 (require 'dmaz-orgmode-init)
+
+(require 'dmaz-magit)
 
 (use-package dmaz-keybindings
   :config
