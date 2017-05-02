@@ -5,8 +5,14 @@
  ;; If there is more than one, they won't work right.
  '(Info-mode-hook (quote (dmaz-Info-mode-remap)))
  '(blink-cursor-mode nil)
+ '(company-tooltip-align-annotations t)
  '(current-language-environment (quote utf-8))
+ '(custom-enabled-themes (quote (zenburn)))
+ '(custom-safe-themes
+   (quote
+    ("ad18964df4cb93b04db80cad9dbe0fd4429eb4b66ed1dc4f6695656d382051b2" "a0dc0c1805398db495ecda1994c744ad1a91a9455f2a17b59b716f72d3585dde" default)))
  '(delete-selection-mode t)
+ '(editorconfig-mode t)
  '(electric-pair-mode t)
  '(emacs-lisp-mode-hook (quote (eldoc-mode)))
  '(global-auto-revert-mode t)
@@ -18,6 +24,10 @@
  '(ivy-count-format "(%d/%d) ")
  '(ivy-mode t)
  '(ivy-use-virtual-buffers t)
+ '(ls-lisp-dirs-first t)
+ '(ls-lisp-ignore-case t)
+ '(ls-lisp-use-string-collate nil)
+ '(ls-lisp-verbosity (quote (links)))
  '(make-backup-files nil)
  '(mark-even-if-inactive t)
  '(markdown-command "pandoc")
@@ -48,7 +58,7 @@
      ("gnu" . "http://elpa.gnu.org/packages/"))))
  '(package-selected-packages
    (quote
-    (magit markdown-mode popwin multiple-cursors pt move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (company magit markdown-mode popwin multiple-cursors pt move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
  '(save-place-file (dmaz-joindirs user-emacs-directory "tmp" "places"))
  '(save-place-mode t)
  '(scroll-error-top-bottom t)

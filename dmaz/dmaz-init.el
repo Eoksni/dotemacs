@@ -16,6 +16,11 @@
 
 (require 'dmaz-magit)
 
+(use-package editorconfig
+  :diminish editorconfig-mode)
+
+(require 'dmaz-typescript)
+
 (use-package dmaz-keybindings
   :config
   (dmaz-activate-keymaps))
