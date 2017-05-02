@@ -1,0 +1,6 @@
+[submodule "ctable-git"]
+	path = ctable-git
+	url = https://github.com/emacsmirror/ctable
+[submodule "benchmark-init-git"]
+	path = benchmark-init-git
+	url = https://github.com/dholm/benchmark-init-el
