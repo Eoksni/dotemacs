@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: docstring for raise exception
+# key: docexception
+# binding: direct-keybinding
+# --
+Traceback (most recent call last):
+${1:TypeError}: ${2:num_nodes must be int}

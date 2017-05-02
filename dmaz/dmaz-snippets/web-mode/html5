@@ -1,0 +1,15 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: html5 scaffold
+# key: html5
+# binding: direct-keybinding
+# --
+<!doctype html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    $0
+  </body>
+</html>

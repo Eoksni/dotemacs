@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Big Comment like Title
+# key: bigcomment
+# --
+${1:$(make-string (+ (string-width text) 8) ?\#)}
+### ${1:Title} ###
+${1:$(make-string (+ (string-width text) 8) ?\#)}$0

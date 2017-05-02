@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: create keybinding
+# key: keybinding
+# binding: direct-keybinding
+# --
+(define-key dmaz-keys-minor-mode-map (kbd "${1:C-<backtab>}") '${0:previous-buffer})

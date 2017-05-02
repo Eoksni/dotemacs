@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: header for module
+# key: header
+# binding: direct-keybinding
+# --
+;;; package --- Summary
+;;; Commentary:
+;;; Code:

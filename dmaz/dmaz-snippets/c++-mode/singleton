@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: singleton
+# key: singleton
+# --
+class $1 {
+ public:
+  static $1& getInstance() {
+    static $1 instance;
+
+    return instance;
+  }
+ private:
+  $1();
+  $1($1 const &);
+  void operator=($1 const &);
+};

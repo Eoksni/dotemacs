@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: comment-section
+# key: comment
+# --
+;; ++$1 ;;
+$0
+;; --$1 ;;

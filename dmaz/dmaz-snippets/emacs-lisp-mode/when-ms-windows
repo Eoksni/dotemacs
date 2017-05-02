@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: when system is MS Windows
+# key: mswindows
+# binding: direct-keybinding
+# --
+(when (eq system-type 'windows-nt)
+  $0
+  )

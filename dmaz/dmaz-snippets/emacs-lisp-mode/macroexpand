@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: expand macro
+# key: macroexpand
+# binding: direct-keybinding
+# --
+(macroexpand '$0)

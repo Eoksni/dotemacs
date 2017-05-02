@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: New Task
+# key: newtask
+# --
+
+${1:$(make-string (+ (string-width text) 8) ?\#)}
+### ${1:Title} ###
+${1:$(make-string (+ (string-width text) 8) ?\#)}$0

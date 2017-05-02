@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Insert Estimate
+# key: esti
+# --
+:PROPERTIES:
+:Effort_Optimistic:  0:$1
+:Effort:             0:$2
+:Effort_Pessimistic: 0:$3
+:END:$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: disablecommand
+# key: disable command without user confirmation
+# binding: direct-keybinding
+# --
+(put '${1:delete-region} 'disabled
+          "${0:Does not work on MS Windows}")

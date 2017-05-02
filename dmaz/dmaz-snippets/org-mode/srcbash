@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: srcbash
+# key: srcbash
+# --
+#+begin_src sh :shebang "#!/bin/bash" :tangle test.sh
+$1
+#+end_src

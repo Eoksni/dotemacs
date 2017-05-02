@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: remap keys from function to another function
+# key: remapkey
+# binding: direct-keybinding
+# --
+(define-key dmaz-keys-minor-mode-map [remap ${1:find-file}] '${0:ido-find-file})
