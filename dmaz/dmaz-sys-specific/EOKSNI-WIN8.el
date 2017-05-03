@@ -12,6 +12,7 @@
    (quote
     ("ad18964df4cb93b04db80cad9dbe0fd4429eb4b66ed1dc4f6695656d382051b2" "a0dc0c1805398db495ecda1994c744ad1a91a9455f2a17b59b716f72d3585dde" default)))
  '(delete-selection-mode t)
+ '(dmaz-font-string "Consolas-11")
  '(editorconfig-mode t)
  '(electric-pair-mode t)
  '(emacs-lisp-mode-hook (quote (eldoc-mode)))
@@ -58,7 +59,7 @@
      ("gnu" . "http://elpa.gnu.org/packages/"))))
  '(package-selected-packages
    (quote
-    (company magit markdown-mode popwin multiple-cursors pt move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors pt move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
  '(save-place-file (dmaz-joindirs user-emacs-directory "tmp" "places"))
  '(save-place-mode t)
  '(scroll-error-top-bottom t)

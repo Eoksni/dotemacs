@@ -19,7 +19,16 @@
 (use-package editorconfig
   :diminish editorconfig-mode)
 
+(use-package autorevert
+  :diminish auto-revert-mode)
+
+(use-package eldoc
+  :diminish eldoc-mode)
+
 (require 'dmaz-typescript)
+
+(use-package restclient-mode
+  :mode "\\.rest\\'")
 
 (use-package dmaz-keybindings
   :config

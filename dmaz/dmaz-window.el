@@ -9,7 +9,7 @@
   :config
   ;; cant use it with customize because it is not autoloaded
   (setq popwin:popup-window-height 25)
-  (setq popwin:special-display-config (quote ((help-mode))))
+  (setq popwin:special-display-config (quote ((help-mode) ("*tide-documentation*" :noselect t))))
   (popwin-mode 1))
 
 ;; (require 'buffer-move)
