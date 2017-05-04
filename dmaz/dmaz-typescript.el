@@ -15,14 +15,14 @@
   (tide-setup)
   
   (flycheck-mode 1)
-  (make-local-variable flycheck-check-syntax-automatically)
-  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
-
   (eldoc-mode 1)
   (tide-hl-identifier-mode 1)
   (company-mode 1)
   (add-node-modules-path)
-  (add-hook 'before-save-hook #'tide-format-before-save))
+  (add-hook 'before-save-hook #'tide-format-before-save)
+  
+  (push '("function" . ?ƒ) prettify-symbols-alist)
+  (prettify-symbols-mode 1))
 
 (defun dmaz-tide-doc-buffer--remove-ctrl-M (buffer)
     (with-current-buffer buffer (dmaz-hide-ctrl-M))
