@@ -23,11 +23,18 @@
 ;;      	 (lambda nil (interactive) (dired-single-buffer "..")))))
 
 
-(use-package dired-single
+(use-package dired
   :bind (:map dired-mode-map
 	      ([return] . dired-single-buffer)
-	      ([mouse-1] . dired-single-buffer-mouse)
-	      ("^" . dmaz-dired-single-up)))
+	      ("^" . dmaz-dired-single-up))
+  :config
+  ;; replace dired mouse interaction with dired-single one
+  (defalias 'dired-mouse-find-file-other-window 'dired-single-buffer-mouse))
+
+(use-package markdown-mode
+  :defer t
+  :config
+  (add-hook 'markdown-mode-hook #'flycheck-mode))
 
 (use-package editorconfig
   :diminish editorconfig-mode)

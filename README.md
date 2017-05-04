@@ -1,11 +1,23 @@
-# Description
+# dotemacs
 
 This is my dotemacs - configuration directory for Emacs. Super Cool!
 
-# Prerequisites (Windows 10)
+## Prerequisites (Windows 10)
 
 ```bat
-choco install pt
-choco install pandoc
+choco install ag
 ```
 
+For markdown
+
+```bat
+choco install pandoc
+gem install mdl
+```
+
+For emacs benchmark
+
+```bat
+cd benchmark-init-git
+make
+```

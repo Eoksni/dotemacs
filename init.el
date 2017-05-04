@@ -21,15 +21,14 @@
 (require 'dmaz-macros)
 
 (when (getenv "DMAZ_EMACSBENCHMARK")
-  (require 'dmaz-benchmark-init)
-  )
+  (add-to-list 'load-path (concat user-emacs-directory "benchmark-init-git/"))
+  (require 'benchmark-init-loaddefs)
+  (benchmark-init/activate))
 
 (require 'dmaz-init)
 
 (message "init.el finished")
 (when (getenv "DMAZ_EMACSBENCHMARK")
-  (call-interactively 'benchmark-init/show-require-times)
-  (call-interactively 'benchmark-init/show-load-times)
-  )
+  (benchmark-init/show-durations-tree))
 
 ;; ;; (require 'cl)

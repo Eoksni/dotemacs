@@ -15,7 +15,7 @@
  '(dmaz-font-string "Consolas-11")
  '(editorconfig-mode t)
  '(electric-pair-mode t)
- '(emacs-lisp-mode-hook (quote (eldoc-mode)))
+ '(emacs-lisp-mode-hook (quote (eldoc-mode prettify-symbols-mode)))
  '(eshell-history-file-name
    (dmaz-joindirs user-emacs-directory "tmp" "eshell" "history"))
  '(flycheck-check-syntax-automatically (quote (save idle-change mode-enabled)))
@@ -35,7 +35,8 @@
  '(ls-lisp-verbosity (quote (links)))
  '(make-backup-files nil)
  '(mark-even-if-inactive t)
- '(markdown-command "pandoc")
+ '(markdown-command "C:\\Users\\Dmitriy\\AppData\\Local\\Pandoc\\pandoc.exe")
+ '(mc/list-file (dmaz-joindirs user-emacs-directory "tmp" ".mc-lists.el"))
  '(mouse-wheel-progressive-speed nil)
  '(org-M-RET-may-split-line (quote ((default))))
  '(org-agenda-cmp-user-defined (quote dmaz-agenda-sort))
@@ -63,14 +64,13 @@
      ("gnu" . "http://elpa.gnu.org/packages/"))))
  '(package-selected-packages
    (quote
-    (dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors pt move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (vue-mode ag dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
  '(projectile-completion-system (quote ivy))
- '(projectile-globally-ignored-directories
-   (quote
-    (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules")))
+ '(projectile-indexing-method (quote alien))
  '(projectile-known-projects-file
    (dmaz-joindirs user-emacs-directory "tmp" "projectile-bookmarks.eld"))
  '(projectile-mode t nil (projectile))
+ '(projectile-switch-project-action (quote projectile-dired))
  '(save-place-file (dmaz-joindirs user-emacs-directory "tmp" "places"))
  '(save-place-mode t)
  '(scroll-error-top-bottom t)
