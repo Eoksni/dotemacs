@@ -16,6 +16,8 @@
  '(editorconfig-mode t)
  '(electric-pair-mode t)
  '(emacs-lisp-mode-hook (quote (eldoc-mode)))
+ '(eshell-history-file-name
+   (dmaz-joindirs user-emacs-directory "tmp" "eshell" "history"))
  '(flycheck-check-syntax-automatically (quote (save idle-change mode-enabled)))
  '(flycheck-idle-change-delay 2.0)
  '(global-auto-revert-mode t)
@@ -61,12 +63,13 @@
      ("gnu" . "http://elpa.gnu.org/packages/"))))
  '(package-selected-packages
    (quote
-    (projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors pt move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors pt move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules")))
- '(projectile-known-projects-file (dmaz-joindirs user-emacs-directory "tmp" "projectile-bookmarks.eld"))
+ '(projectile-known-projects-file
+   (dmaz-joindirs user-emacs-directory "tmp" "projectile-bookmarks.eld"))
  '(projectile-mode t nil (projectile))
  '(save-place-file (dmaz-joindirs user-emacs-directory "tmp" "places"))
  '(save-place-mode t)

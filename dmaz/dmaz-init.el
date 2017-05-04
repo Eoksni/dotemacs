@@ -16,6 +16,19 @@
 
 (require 'dmaz-magit)
 
+;;        (define-key dired-mode-map [return] 'dired-single-buffer)
+;;        (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
+;;        (define-key dired-mode-map "^"
+;;      	(function
+;;      	 (lambda nil (interactive) (dired-single-buffer "..")))))
+
+
+(use-package dired-single
+  :bind (:map dired-mode-map
+	      ([return] . dired-single-buffer)
+	      ([mouse-1] . dired-single-buffer-mouse)
+	      ("^" . dmaz-dired-single-up)))
+
 (use-package editorconfig
   :diminish editorconfig-mode)
 

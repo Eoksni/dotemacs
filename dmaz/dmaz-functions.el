@@ -447,4 +447,8 @@ BEG and END (region to sort)."
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 
+(defun dmaz-dired-single-up ()
+  (interactive) 
+  (dired-single-buffer ".."))
+
 (provide 'dmaz-functions)
