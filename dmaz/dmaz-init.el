@@ -1,3 +1,5 @@
+(require 'cl)
+
 (require 'dmaz-functions)
 (require 'dmaz-general-config)
 (require 'dmaz-customize)

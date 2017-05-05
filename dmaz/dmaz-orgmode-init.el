@@ -1,3 +1,7 @@
+(use-package org
+  :init
+  (add-hook 'org-mode-hook #'dmaz-org-mode-hook))
+
 (use-package org-agenda
   :config
   (add-hook 'org-finalize-agenda-hook
@@ -11,16 +15,16 @@
   :bind (:map dmaz-mode-specific-map
 	      ("c" . org-capture)))
 
-;; (setq org-capture-templates-contexts
-;;       '(("T" ((in-mode . "org-agenda-mode")))))
-;; (setq org-clock-sound t)
-;; (message "dmaz-orgmode-init.el stage 5 completed")
-;; (define-key dmaz-keys-minor-mode-map (kbd "C-c c") 'org-capture)
+(use-package org-notify
+  :defer 5
+  :config
+  (defalias 'org-notify-make-todo 'dmaz-org-notify-make-todo)
+  (org-notify-add 'default
+		  '(:time "5m" :actions dmaz-org-notify-action-notify))
+  (org-notify-start 10))
+
 ;; (define-key dmaz-keys-minor-mode-map (kbd "C-c t") (lambda () (interactive) (org-capture nil "t")))
 ;; (define-key dmaz-keys-minor-mode-map (kbd "C-c m") (lambda () (interactive) (org-capture nil "m")))
-
-
-;; (setq org-startup-indented t)
 
 ;; (setq org-agenda-clockreport-parameter-plist (list :link t :maxlevel 6))
 ;; (setq org-clocktable-defaults (list :maxlevel 10 :lang "en" :scope 'file :block nil :tstart nil :tend nil :step nil :stepskip0 nil :fileskip0 nil :tags nil :emphasize t :link nil :narrow '60! :indent t :formula nil :timestamp nil :level nil :tcolumns nil :formatter nil))
@@ -104,7 +108,6 @@
 ;; (setq org-clock-persist t)
 ;; (message "dmaz-orgmode-init.el stage 7.15 completed")
 ;; ;; (setq org-clock-modeline-total 'current)
-;; (setq org-show-notification-handler 'dmaz-org-show-notification)
 ;; (message "dmaz-orgmode-init.el stage 7.16 completed")
 ;; (setq org-special-ctrl-a/e t)
 ;; (message "dmaz-orgmode-init.el stage 7.17 completed")
@@ -152,105 +155,54 @@
 ;; (message "dmaz-orgmode-init.el stage 8 completed")
 
 
-;; (defun dmaz-org-show-notification (notification &optional title)
-;;   (let ((title (or title "Emacs")))
-;;     (start-process "emacs-timer-notification" nil
-;;                    "growlnotify" (format "/t:%s" title) "/i:E:\\eoksni-dir\\portable\\emacs\\dotemacs\\emacs.png" notification)
-;;     ))
-;; (defun dmaz-org-notify-action-notify (plist)
-;;   "Pop up a notification window."
-;;   (dmaz-org-show-notification (org-notify-body-text plist) (plist-get plist :heading))
-;;   )
-;; (defun dmaz-org-notify-make-todo (orig-fun heading &rest ignored)
-;;   "Create one todo item."
-;;   (macrolet ((get (k) `(plist-get list ,k))
-;;              (pr (k v) `(setq result (plist-put result ,k ,v))))
-;;     (let* ((list (nth 1 heading))      (notify (or (get :NOTIFY) "default"))
-;;            (deadline (or (org-notify-convert-deadline (get :deadline)) (dmaz-org-notify-convert-scheduled (get :scheduled))))
-;;            (heading (get :raw-value))
-;;            result)
-;;       (when (and (eq (get :todo-type) 'todo) heading deadline)
-;;         (pr :heading heading)     (pr :notify (intern notify))
-;;         (pr :begin (get :begin))
-;;         (pr :file (nth org-notify-parse-file (org-agenda-files 'unrestricted)))
-;;         (pr :timestamp deadline)  (pr :uid (md5 (concat heading deadline)))
-;;         (pr :deadline (- (org-time-string-to-seconds deadline)
-;;                          (float-time))))
-;;       result)))
-;; (defun dmaz-org-notify-convert-scheduled (orig)
-;;   "Convert original scheduled from `org-element-parse-buffer' to
-;; simple timestamp string."
-;;   (if (and orig (plist-get (plist-get orig 'timestamp)
-;;                            :hour-start))
-;;       (replace-regexp-in-string "^<\\|>$" ""
-;;                                 (plist-get (plist-get orig 'timestamp)
-;;                                            :raw-value))))
-;; (message "dmaz-orgmode-init.el stage 9 completed")
-;; ;;(require 'org-notify)
-;; (message "dmaz-orgmode-init.el stage 9.1 completed")
-;; (advice-add 'org-notify-make-todo :around #'dmaz-org-notify-make-todo)
-;; (message "dmaz-orgmode-init.el stage 9.2 completed")
-;; ;;(org-notify-add 'default
-;; ;;                '(:time "5m" :actions dmaz-org-notify-action-notify))
-;; (message "dmaz-orgmode-init.el stage 9.3 completed")
-;; ;; (org-notify-add 'urgent-second '(:time "3m" :actions (-notify/window -ding)
-;; ;;                                        :period "15s" :duration 10))
-;; ;; (org-notify-add 'minute '(:time "5m" :actions -notify/window
-;; ;;                                 :period "100s" :duration 70))
-;; ;; (org-notify-add '12hours
-;; ;;                 '(:time "3m" :actions (-notify/window -ding)
-;; ;;                         :period "15s" :duration 10)
-;; ;;                 '(:time "100m" :actions -notify/window
-;; ;;                         :period "2m" :duration 60)
-;; ;;                 '(:time "12h" :actions -notify/window :audible nil
-;; ;;                         :period "10m" :duration 200))
-;; ;; (org-notify-add '5days
-;; ;;                 '(:time "100m" :actions -notify/window
-;; ;;                         :period "2m" :duration 60)
-;; ;;                 '(:time "2d" :actions -notify/window
-;; ;;                         :period "15m" :duration 100)
-;; ;;                 '(:time "5d" :actions -notify/window
-;; ;;                         :period "2h" :duration 200))
-;; ;; (org-notify-add 'long-20days
-;; ;;                 '(:time "2d" :actions -notify/window
-;; ;;                         :period "15m" :duration 60)
-;; ;;                 '(:time "5d" :actions -notify/window
-;; ;;                         :period "2h" :duration 60)
-;; ;;                 '(:time "20d" :actions -email :period "2d" :audible nil))
-;; ;; (org-notify-add 'long-50days
-;; ;;                 '(:time "4d" :actions -notify/window
-;; ;;                         :period "30m" :duration 100)
-;; ;;                 '(:time "10d" :actions -notify/window
-;; ;;                         :period "4h" :duration 200)
-;; ;;                 '(:time "50d" :actions -email :period "3d" :audible nil))
-;; ;; (org-notify-add 'long-100days
-;; ;;                 '(:time "2d" :actions -notify/window
-;; ;;                         :period "1h" :duration 200)
-;; ;;                 '(:time "10d" :actions -notify/window
-;; ;;                         :period "10h" :duration 300)
-;; ;;                 '(:time "50d" :actions -email :period "3d" :audible nil)
-;; ;;                 '(:time "100d" :actions -email :period "5d" :audible nil))
-;; ;;(org-notify-start 10)
-;; (message "dmaz-orgmode-init.el stage 9.3 completed")
-;; (setq org-agenda-log-mode-items '(state))
-;; (message "dmaz-orgmode-init.el stage 9.4 completed")
 
+(defun dmaz-show-notification (notification &optional title)
+  (interactive "sNotification text: ")
+  (let ((title (or title "Emacs")))
+    (start-process "emacs-timer-notification" nil
+                   "growlnotify" (format "/t:%s" title) "/i:E:\\eoksni-dir\\portable\\emacs\\dotemacs\\emacs.png" notification)))
+
+(defun dmaz-org-notify-action-notify (plist)
+  "Pop up a notification window."
+  (dmaz-show-notification (org-notify-body-text plist) (plist-get plist :heading)))
+
+(defun dmaz-org-notify-make-todo (heading &rest ignored)
+  "Replacement for org-notify-make-todo Create one todo item."
+  (macrolet ((get (k) `(plist-get list ,k))
+             (pr (k v) `(setq result (plist-put result ,k ,v))))
+    (let* ((list (nth 1 heading))      (notify (or (get :NOTIFY) "default"))
+           (deadline (or (org-notify-convert-deadline (get :deadline)) (dmaz-org-notify-convert-scheduled (get :scheduled))))
+           (heading (get :raw-value))
+           result)
+      (when (and (eq (get :todo-type) 'todo) heading deadline)
+        (pr :heading heading)     (pr :notify (intern notify))
+        (pr :begin (get :begin))
+        (pr :file (nth org-notify-parse-file (org-agenda-files 'unrestricted)))
+        (pr :timestamp deadline)  (pr :uid (md5 (concat heading deadline)))
+        (pr :deadline (- (org-time-string-to-seconds deadline)
+                         (float-time))))
+      result)))
+
+(defun dmaz-org-notify-convert-scheduled (orig)
+  "Convert original scheduled from `org-element-parse-buffer' to
+simple timestamp string."
+  (if (and orig (plist-get (plist-get orig 'timestamp)
+                           :hour-start))
+      (replace-regexp-in-string "^<\\|>$" ""
+                                (plist-get (plist-get orig 'timestamp)
+                                           :raw-value))))
 
 (defun dmaz-org-setup-eoksni-dir ()
   (interactive)
-  (message "Setting eoksni-dir %s" dmaz-path-to-eoksni-dir)
-  (with-eval-after-load "org-agenda"
-    (add-to-list 'org-agenda-files (dmaz-joindirs dmaz-path-to-eoksni-dir "notes"))
-    (add-to-list 'org-agenda-files (dmaz-joindirs dmaz-path-to-eoksni-dir "work/jslearning/jslearning.org"))))
+  (add-to-list 'org-agenda-files (dmaz-joindirs dmaz-path-to-eoksni-dir "notes"))
+  (add-to-list 'org-agenda-files (dmaz-joindirs dmaz-path-to-eoksni-dir "work/jslearning/jslearning.org")))
 
 (defun dmaz-org-setup-onedrive-dir ()
   (interactive)
-  (message "Setting onedrive-dir %s" dmaz-path-to-onedrive-dir)
-  (with-eval-after-load "org-agenda"
-    (setq org-directory (dmaz-joindirs (file-name-as-directory dmaz-path-to-onedrive-dir) "notes"))
-    (add-to-list 'org-agenda-files (dmaz-joindirs org-directory "life"))
-    (add-to-list 'org-agenda-files (dmaz-joindirs org-directory "main.org"))
-    (setq org-default-notes-file (dmaz-joindirs org-directory "main.org"))))
+  (setq org-directory (dmaz-joindirs (file-name-as-directory dmaz-path-to-onedrive-dir) "notes"))
+  (add-to-list 'org-agenda-files (dmaz-joindirs org-directory "life"))
+  (add-to-list 'org-agenda-files (dmaz-joindirs org-directory "main.org"))
+  (setq org-default-notes-file (dmaz-joindirs org-directory "main.org")))
 
 (defun dmaz-clock-in-to-started (kw)
   "Switch task from TODO or NEXT to STARTED when clocking in.
@@ -349,6 +301,9 @@ Skips capture tasks."
 
 (defun dmaz-is-scheduled-late (date-str)
   (string-match "Sched\.\\(.*\\)x:" date-str))
+
+(defun dmaz-org-mode-hook () 
+  (auto-fill-mode))
 
 (provide 'dmaz-orgmode-init)
 ;; (message "dmaz-orgmode-init.el stage 9.5 completed")

@@ -83,6 +83,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
  '(org-habit-graph-column 70)
  '(org-modules (quote (org-habit)))
  '(org-src-fontify-natively t)
+ '(org-startup-indented t)
  '(org-todo-keywords
    (quote
     ((sequence "TODO(t)" "WAITING(w)" "STARTED(s)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
@@ -90,10 +91,16 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
  '(package-archives
    (quote
     (("melpa" . "https://melpa.org/packages/")
-     ("gnu" . "http://elpa.gnu.org/packages/"))))
+     ("gnu" . "http://elpa.gnu.org/packages/")
+     ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (vue-mode ag dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (indium js-comint org-plus-contrib vue-mode ag dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+ '(popwin:special-display-config
+   (quote
+    ((help-mode)
+     ("*tide-documentation*" :noselect t)
+     (ag-mode))))
  '(projectile-completion-system (quote ivy))
  '(projectile-indexing-method (quote alien))
  '(projectile-known-projects-file
