@@ -2,6 +2,9 @@
 (require 'dmaz-general-config)
 (require 'dmaz-customize)
 
+;; (use-package dmaz-keybindings
+;;   :config
+;;   (dmaz-reverse-input-method 'russian-computer))
 (require 'dmaz-keybindings)
 
 (require 'dmaz-package)

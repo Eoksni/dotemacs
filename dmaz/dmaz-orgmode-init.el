@@ -7,6 +7,19 @@
   :bind (:map dmaz-mode-specific-map
 	      ("a" . org-agenda)))
 
+(use-package org-capture
+  :bind (:map dmaz-mode-specific-map
+	      ("c" . org-capture)))
+
+;; (setq org-capture-templates-contexts
+;;       '(("T" ((in-mode . "org-agenda-mode")))))
+;; (setq org-clock-sound t)
+;; (message "dmaz-orgmode-init.el stage 5 completed")
+;; (define-key dmaz-keys-minor-mode-map (kbd "C-c c") 'org-capture)
+;; (define-key dmaz-keys-minor-mode-map (kbd "C-c t") (lambda () (interactive) (org-capture nil "t")))
+;; (define-key dmaz-keys-minor-mode-map (kbd "C-c m") (lambda () (interactive) (org-capture nil "m")))
+
+
 ;; (setq org-startup-indented t)
 
 ;; (setq org-agenda-clockreport-parameter-plist (list :link t :maxlevel 6))
@@ -44,47 +57,6 @@
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (setq org-capture-templates
-;;       (quote
-;;        (("t" "todo" entry (file+headline org-default-notes-file "INBOX inbox")
-;;          "* TODO %?%a\n"
-;;          ;;:clock-in t
-;;          ;;:clock-resume t
-;;          )
-;;         ("T" "today" entry (file+headline org-default-notes-file "today")
-;;          "* TODO %?\nSCHEDULED: %t"
-;;          ;;:clock-in t
-;;          ;;:clock-resume t
-;;          )
-;;         ("h" "habit" entry (file+headline (dmaz-joindirs org-directory "life" "habits.org") "habits")
-;;          "* TODO %?\nSCHEDULED: <%<%Y-%m-%d %a> .+1d>\n:PROPERTIES:\n:STYLE:    habit\n:CLOCK_MODELINE_TOTAL: today\n:END:"
-;;          ;;:clock-in t
-;;          ;;:clock-resume t
-;;          )
-;;         ("w" "words" checkitem (file+headline org-default-notes-file "words")
-;;          ""
-;;          ;;:clock-in t
-;;          ;;:clock-resume t
-;;          )
-;;         ("b" "books" checkitem (file+headline org-default-notes-file "books")
-;;          ""
-;;          ;;:clock-in t
-;;          ;;:clock-resume t
-;;          )
-;;         ("m" "music" checkitem (file+headline org-default-notes-file "music")
-;;          ""
-;;          ;;:clock-in t
-;;          ;;:clock-resume t
-;;          ))))
-;; (setq org-capture-templates-contexts
-;;       '(("T" ((in-mode . "org-agenda-mode")))))
-;; (setq org-clock-sound t)
-;; (message "dmaz-orgmode-init.el stage 5 completed")
-;; (define-key dmaz-keys-minor-mode-map (kbd "C-c c") 'org-capture)
-;; (define-key dmaz-keys-minor-mode-map (kbd "C-c t") (lambda () (interactive) (org-capture nil "t")))
-;; (define-key dmaz-keys-minor-mode-map (kbd "C-c m") (lambda () (interactive) (org-capture nil "m")))
-
 
 ;; ;; refiling ;;
 ;; ;; allow refiling into up to 5 levels of the headline trees in all org files

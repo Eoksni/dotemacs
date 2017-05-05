@@ -48,6 +48,35 @@
      (tags priority-down category-up)
      (search category-keep))))
  '(org-blank-before-new-entry (quote ((heading) (plain-list-item))))
+ '(org-capture-templates
+   (quote
+    (("t" "todo" entry
+      (file+headline org-default-notes-file "INBOX inbox")
+      "* TODO %?%a
+")
+     ("T" "today" entry
+      (file+headline org-default-notes-file "today")
+      "* TODO %?
+SCHEDULED: %t")
+     ("h" "habit" entry
+      (file+headline
+       (dmaz-joindirs org-directory "life" "habits.org")
+       "habits")
+      "* TODO %?
+SCHEDULED: <%<%Y-%m-%d %a> .+1d>
+:PROPERTIES:
+:STYLE:    habit
+:CLOCK_MODELINE_TOTAL: today
+:END:")
+     ("w" "words" checkitem
+      (file+headline org-default-notes-file "words")
+      "")
+     ("b" "books" checkitem
+      (file+headline org-default-notes-file "books")
+      "")
+     ("m" "music" checkitem
+      (file+headline org-default-notes-file "music")
+      ""))))
  '(org-catch-invisible-edits (quote show-and-error))
  '(org-clock-in-switch-to-state (quote dmaz-clock-in-to-started))
  '(org-enforce-todo-dependencies t)

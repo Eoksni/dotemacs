@@ -1,5 +1,5 @@
 (use-package js2-mode
-  :mode ("\\.js\\'" "\\.ts\\'"))
+  :mode ("\\.js\\'"))
 
 (use-package tide
   :diminish tide-mode
@@ -21,7 +21,10 @@
   (add-node-modules-path)
   (add-hook 'before-save-hook #'tide-format-before-save)
   
-  (push '("function" . ?ƒ) prettify-symbols-alist)
+  (setq prettify-symbols-alist '(("function" . 402)
+				 ;; ("=>" . 8658)
+				 (">=" . 8805)
+				 ("<=" . 8804)))
   (prettify-symbols-mode 1))
 
 (defun dmaz-tide-doc-buffer--remove-ctrl-M (buffer)

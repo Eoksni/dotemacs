@@ -3,11 +3,12 @@
 ;;; Code:
 
 (message "init.el: starting")
-(require 'server)
-(when (and (eq system-type 'windows-nt) (file-exists-p (getenv "APPDATA")))
-  (setq server-auth-dir (concat (getenv "APPDATA") "/.emacs.d/server"))
-  (make-directory server-auth-dir t))
-(ignore-errors (server-start))
+;; ;; starting server (deprecated, server is now started from _run script)
+;; (require 'server)
+;; (when (and (eq system-type 'windows-nt) (file-exists-p (getenv "APPDATA")))
+;;   (setq server-auth-dir (concat (getenv "APPDATA") "/.emacs.d/server"))
+;;   (make-directory server-auth-dir t))
+;; (ignore-errors (server-start))
 
 ;; Turn off mouse interface early in startup to avoid momentary display
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
@@ -31,4 +32,3 @@
 (when (getenv "DMAZ_EMACSBENCHMARK")
   (benchmark-init/show-durations-tree))
 
-;; ;; (require 'cl)
