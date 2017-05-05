@@ -169,30 +169,9 @@
 	      ("C->" . mc/mark-next-like-this)
 	      ("C-<" . mc/mark-previous-like-this)))
 
-;; (defadvice read-passwd (around my-read-passwd act)
-;;   (let ((local-function-key-map nil))
-;;     ad-do-it))
-
-;; (setq read-passwd-map
-;;        (let ((map read-passwd-map))
-;;          (set-keymap-parent map minibuffer-local-map)
-;;          (define-key map [return] #'exit-minibuffer)
-;;          (define-key map [backspace] #'delete-backward-char)
-;;          map))
-
-;; (if (not (daemonp))
-;;     (reverse-input-method 'russian-computer)
-;;   (require 'cl)
-;;   (defun rev-inp-m-init (f)
-;;     (lexical-let ((frame f))
-;; 		 (message "hello")
-;;     		 (run-at-time nil nil
-;;     		 	      #'(lambda () (unless (and (daemonp) (eq frame terminal-frame))
-;;     		 			;; (reverse-input-method 'russian-computer)
-;; 					(message "doublehello")
-;;     		 			(remove-hook 'after-make-frame-functions #'rev-inp-m-init))))
-;; 		 )
-;;     )
-;;   (add-hook 'after-make-frame-functions #'rev-inp-m-init))
+(use-package shell-mode
+  :defer t
+  :init
+  (add-hook 'shell-mode-hook #'turn-off-dmaz-keys-minor-mode))
 
 (provide 'dmaz-keybindings)

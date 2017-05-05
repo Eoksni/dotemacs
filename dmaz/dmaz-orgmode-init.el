@@ -1,4 +1,5 @@
 (use-package org
+  :defer t
   :init
   (add-hook 'org-mode-hook #'dmaz-org-mode-hook))
 
@@ -18,6 +19,7 @@
 (use-package org-notify
   :defer 5
   :config
+  (require 'org)
   (defalias 'org-notify-make-todo 'dmaz-org-notify-make-todo)
   (org-notify-add 'default
 		  '(:time "5m" :actions dmaz-org-notify-action-notify))
@@ -194,15 +196,17 @@ simple timestamp string."
 
 (defun dmaz-org-setup-eoksni-dir ()
   (interactive)
-  (add-to-list 'org-agenda-files (dmaz-joindirs dmaz-path-to-eoksni-dir "notes"))
-  (add-to-list 'org-agenda-files (dmaz-joindirs dmaz-path-to-eoksni-dir "work/jslearning/jslearning.org")))
+  (with-eval-after-load "org"
+    (add-to-list 'org-agenda-files (dmaz-joindirs dmaz-path-to-eoksni-dir "notes"))
+    (add-to-list 'org-agenda-files (dmaz-joindirs dmaz-path-to-eoksni-dir "work/jslearning/jslearning.org"))))
 
 (defun dmaz-org-setup-onedrive-dir ()
   (interactive)
-  (setq org-directory (dmaz-joindirs (file-name-as-directory dmaz-path-to-onedrive-dir) "notes"))
-  (add-to-list 'org-agenda-files (dmaz-joindirs org-directory "life"))
-  (add-to-list 'org-agenda-files (dmaz-joindirs org-directory "main.org"))
-  (setq org-default-notes-file (dmaz-joindirs org-directory "main.org")))
+  (with-eval-after-load "org"
+    (setq org-directory (dmaz-joindirs (file-name-as-directory dmaz-path-to-onedrive-dir) "notes"))
+    (add-to-list 'org-agenda-files (dmaz-joindirs org-directory "life"))
+    (add-to-list 'org-agenda-files (dmaz-joindirs org-directory "main.org"))
+    (setq org-default-notes-file (dmaz-joindirs org-directory "main.org"))))
 
 (defun dmaz-clock-in-to-started (kw)
   "Switch task from TODO or NEXT to STARTED when clocking in.

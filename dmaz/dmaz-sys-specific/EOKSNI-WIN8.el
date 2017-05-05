@@ -95,7 +95,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (indium js-comint org-plus-contrib vue-mode ag dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (js-comint org-plus-contrib vue-mode ag dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
  '(popwin:special-display-config
    (quote
     ((help-mode)
