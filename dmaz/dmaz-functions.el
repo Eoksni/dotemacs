@@ -474,4 +474,9 @@ BEG and END (region to sort)."
 ;;     (when input-method
 ;;       (activate-input-method current))))
 
+(defun dmaz-revisit-buffer ()
+  (interactive)
+  (save-buffer)
+  (revert-buffer :ignore-auto :noconfirm))
+
 (provide 'dmaz-functions)
