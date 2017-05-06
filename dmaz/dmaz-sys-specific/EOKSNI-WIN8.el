@@ -86,6 +86,16 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
  '(org-modules (quote (org-habit)))
  '(org-src-fontify-natively t)
  '(org-startup-indented t)
+ '(org-todo-keyword-faces
+   (quote
+    (("TODO" :foreground "red" :weight bold)
+     ("PENDING" :foreground "green" :weight bold)
+     ("NEXT" :foreground "blue" :weight bold)
+     ("TEST" :foreground "blue" :weight bold)
+     ("STARTED" :foreground "magenta" :weight bold)
+     ("DONE" :foreground "forest green" :weight bold)
+     ("WAITING" :foreground "gray" :weight bold)
+     ("CANCELLED" :foreground "forest green" :weight bold))))
  '(org-todo-keywords
    (quote
     ((sequence "TODO(t)" "WAITING(w)" "STARTED(s)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
@@ -97,7 +107,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (js-comint org-plus-contrib vue-mode ag dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (which-key js-comint org-plus-contrib vue-mode ag dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
  '(popwin:special-display-config
    (quote
     ((help-mode)
@@ -122,7 +132,8 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
  '(tooltip-mode nil)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  '(vc-handled-backends nil)
- '(visible-bell t))
+ '(visible-bell t)
+ '(which-key-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

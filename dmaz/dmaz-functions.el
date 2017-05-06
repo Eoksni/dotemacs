@@ -125,7 +125,7 @@ Subsequent calls expands the selection to larger semantic unit."
 
 (defun dmaz-disable-keys-for-function-in-keymap (FUNSYMBOL KEYMAP &optional SEARCHKEYMAP)
   "Finds all keybindings to invoke function FUNSYMBOL and undefines them in KEYMAP keymap"
-  (dolist (element (where-is-internal FUNSYMBOL SEARCHKEYMAP))
+  (dolist (element (where-is-internal FUNSYMBOL (if (keymapp SEARCHKEYMAP) SEARCHKEYMAP KEYMAP)))
     (define-key KEYMAP element nil)))
 
 (defun dmaz-buffer-local-set-key (KEYBINDING FUNCTION)

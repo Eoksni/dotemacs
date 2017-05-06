@@ -1,7 +1,9 @@
 (use-package org
   :defer t
   :init
-  (add-hook 'org-mode-hook #'dmaz-org-mode-hook))
+  (add-hook 'org-mode-hook #'dmaz-org-mode-hook)
+  :config
+  (dmaz-disable-keys-for-function-in-keymap 'org-remove-file org-mode-map))
 
 (use-package org-agenda
   :config
@@ -25,23 +27,9 @@
 		  '(:time "5m" :actions dmaz-org-notify-action-notify))
   (org-notify-start 10))
 
-;; (define-key dmaz-keys-minor-mode-map (kbd "C-c t") (lambda () (interactive) (org-capture nil "t")))
-;; (define-key dmaz-keys-minor-mode-map (kbd "C-c m") (lambda () (interactive) (org-capture nil "m")))
-
 ;; (setq org-agenda-clockreport-parameter-plist (list :link t :maxlevel 6))
 ;; (setq org-clocktable-defaults (list :maxlevel 10 :lang "en" :scope 'file :block nil :tstart nil :tend nil :step nil :stepskip0 nil :fileskip0 nil :tags nil :emphasize t :link nil :narrow '60! :indent t :formula nil :timestamp nil :level nil :tcolumns nil :formatter nil))
-;; (setq org-todo-keyword-faces
-;;       (quote (("TODO" :foreground "red" :weight bold)
-;;               ("PENDING" :foreground "green" :weight bold)
-;;               ("NEXT" :foreground "blue" :weight bold)
-;;               ("TEST" :foreground "blue" :weight bold)
-;;               ("STARTED" :foreground "magenta" :weight bold)
-;;               ("DONE" :foreground "forest green" :weight bold)
-;;               ("WAITING" :foreground "gray" :weight bold)
-;;               ;;("HOLD" :foreground "magenta" :weight bold)
-;;               ("CANCELLED" :foreground "forest green" :weight bold)
-;;               ;;("PHONE" :foreground "forest green" :weight bold)
-;;               )))
+
 ;; ;; Disable C-c [ and C-c ] in org-mode
 ;; (defadvice org-refile-goto-last-stored (before dmaz-set-mark-for-refile-goto activate)
 ;;   "Pushes mark before going to last stored refile"
