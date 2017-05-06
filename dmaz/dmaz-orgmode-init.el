@@ -278,6 +278,7 @@ Skips capture tasks."
     ((apply ,fn (list ,b))
      (setq result 1))
     (t nil)))
+
 (defun dmaz-is-not-scheduled-or-deadline (date-str)
   (and (not (dmaz-is-deadline date-str))
        (not (dmaz-is-scheduled date-str))))

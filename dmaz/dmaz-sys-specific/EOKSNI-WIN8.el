@@ -47,6 +47,7 @@
      (todo priority-down category-up)
      (tags priority-down category-up)
      (search category-keep))))
+ '(org-agenda-span (quote day))
  '(org-blank-before-new-entry (quote ((heading) (plain-list-item))))
  '(org-capture-templates
    (quote
@@ -81,6 +82,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
  '(org-clock-in-switch-to-state (quote dmaz-clock-in-to-started))
  '(org-enforce-todo-dependencies t)
  '(org-habit-graph-column 70)
+ '(org-log-into-drawer t)
  '(org-modules (quote (org-habit)))
  '(org-src-fontify-natively t)
  '(org-startup-indented t)
@@ -112,6 +114,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
  '(scroll-error-top-bottom t)
  '(scroll-preserve-screen-position t)
  '(select-enable-clipboard t)
+ '(set-language-environment-hook (quote (dmaz-set-language-environment-hook)))
  '(set-mark-command-repeat-pop t)
  '(show-paren-mode t)
  '(split-height-threshold nil)
