@@ -37,6 +37,7 @@
  '(mark-even-if-inactive t)
  '(markdown-command "C:\\Users\\Dmitriy\\AppData\\Local\\Pandoc\\pandoc.exe")
  '(mc/list-file (dmaz-joindirs user-emacs-directory "tmp" ".mc-lists.el"))
+ '(mode-icons-mode t)
  '(mouse-wheel-progressive-speed nil)
  '(org-M-RET-may-split-line (quote ((default))))
  '(org-agenda-cmp-user-defined (quote dmaz-agenda-sort))
@@ -53,7 +54,7 @@
    (quote
     (("t" "todo" entry
       (file+headline org-default-notes-file "INBOX inbox")
-      "* TODO %?%a
+      "* TODO %?%c
 ")
      ("T" "today" entry
       (file+headline org-default-notes-file "today")
@@ -107,7 +108,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (which-key js-comint org-plus-contrib vue-mode ag dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (mode-icons which-key js-comint org-plus-contrib vue-mode ag dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
  '(popwin:special-display-config
    (quote
     ((help-mode)
