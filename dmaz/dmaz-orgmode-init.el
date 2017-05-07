@@ -1,12 +1,106 @@
+(add-to-list 'process-coding-system-alist '("growlnotify" utf-8 . cp1251))
+
+(use-package org-clock
+  :defer t
+  :commands (org-clock-save org-clock-load))
+
 (use-package org
   :defer t
   :init
   (add-hook 'org-mode-hook #'dmaz-org-mode-hook)
   :config
+  (add-hook 'kill-emacs-hook 'org-clock-save)
+  (org-clock-load)
   (dmaz-disable-keys-for-function-in-keymap 'org-remove-file org-mode-map))
 
+(use-package org-random-compare
+  :commands org-compare-randomly)
+ 
 (use-package org-agenda
-  :config
+  :defer t
+  :config  
+  (add-to-list 'org-agenda-custom-commands 
+	       '("d" "daily start"
+		 (
+		  ;; ;; started tasks
+		  ;; (tags-todo "+TODO=\"STARTED\"-#habits"
+		  ;; 	     ((org-agenda-overriding-header "STARTED Actions")
+		  ;; 	      (org-agenda-tags-todo-honor-ignore-options t)
+		  ;; 	      (org-agenda-todo-ignore-scheduled nil)
+		  ;; 	      (org-agenda-todo-ignore-deadlines nil)))
+
+		  ;; ;; deadlines
+		  ;; (tags-todo "+DEADLINE<=\"<today>\"-TODO=\"STARTED\""
+		  ;; 	     ((org-agenda-overriding-header "Late Deadlines")
+		  ;; 	      (org-agenda-tags-todo-honor-ignore-options t)
+		  ;; 	      (org-agenda-todo-ignore-scheduled t)
+		  ;; 	      (org-agenda-todo-ignore-deadlines nil)))
+		  
+		  ;; ;; schedules
+		  ;; (tags-todo "+SCHEDULED<\"<today>\"-TODO=\"STARTED\"-#habits"
+		  ;; 	     ((org-agenda-overriding-header "Late Schedule")
+		  ;; 	      (org-agenda-tags-todo-honor-ignore-options t)
+		  ;; 	      (org-agenda-todo-ignore-scheduled nil)
+		  ;; 	      (org-agenda-todo-ignore-deadlines t)))
+
+		  ;; ;; habits scheduled
+		  ;; (tags-todo "+SCHEDULED<=\"<today>\"-TODO=\"STARTED\"+#habits"
+		  ;; 	     ((org-agenda-overriding-header "Scheduled Habits")
+		  ;; 	      (org-agenda-tags-todo-honor-ignore-options t)
+		  ;; 	      (org-agenda-todo-ignore-scheduled nil)
+		  ;; 	      (org-agenda-todo-ignore-deadlines t)))
+
+		  ;; ;; waiting
+		  ;; (tags-todo "+TODO=\"WAIT\""
+		  ;; 	     ((org-agenda-overriding-header "Waiting")
+		  ;; 	      (org-agenda-tags-todo-honor-ignore-options t)
+		  ;; 	      (org-agenda-todo-ignore-scheduled t)
+		  ;; 	      (org-agenda-todo-ignore-deadlines t)))
+
+		  ;; today's schedule
+		  (agenda ""
+			  (
+			   (org-agenda-skip-function #'org-agenda-skip-scheduled-if-hour)
+			   (org-habit-show-habits t)
+			   (org-agenda-max-entries 5)
+			   (org-agenda-cmp-user-defined #'(lambda (a b) (if (> (random) (random)) 1 -1)))
+			   (org-agenda-sorting-strategy '(user-defined-up))
+			   )
+			  )
+
+		  ;; ;; next tasks
+		  ;; (tags-todo "+TODO=\"NEXT\"-#hold"
+		  ;; 	     ((org-agenda-overriding-header "NEXT Actions")
+		  ;; 	      (org-agenda-tags-todo-honor-ignore-options t)
+		  ;; 	      (org-agenda-todo-ignore-scheduled t)
+		  ;; 	      (org-agenda-todo-ignore-deadlines t)))
+
+		  ;; ;; projects
+		  ;; (tags-todo "-TODO=\"WAIT\"-TODO=\"INBOX\""
+		  ;; 	     (
+		  ;; 	      (org-agenda-skip-function 'bh/skip-non-projects)
+		  ;; 	      (org-agenda-overriding-header
+		  ;; 	       "Projects (< to restrict by project)")))
+
+		  ;; ;; inbox
+		  ;; (tags-todo "-TODO=\"INBOX\"+#inbox"
+		  ;; 	     ((org-agenda-overriding-header "Inbox")
+		  ;; 	      (org-agenda-tags-todo-honor-ignore-options t)
+		  ;; 	      (org-agenda-todo-ignore-scheduled nil)
+		  ;; 	      (org-agenda-todo-ignore-deadlines nil)))
+
+		  ;; ;; backlog
+		  ;; (tags-todo "+TODO=\"TODO\"-#hold-#inbox"
+		  ;; 	     ((org-agenda-overriding-header "Action Backlog")
+		  ;; 	      (org-agenda-tags-todo-honor-ignore-options t)
+		  ;; 	      (org-agenda-todo-ignore-scheduled t)
+		  ;; 	      (org-agenda-todo-ignore-deadlines t)))
+		  )
+		 ;; ((org-agenda-max-entries      5)
+		 ;;  (org-agenda-cmp-user-defined #'(lambda (a b) (if (> (random) (random)) 1 -1)))
+		 ;;  (org-agenda-sorting-strategy '(user-defined-up)))
+		 ))
+  
   (add-hook 'org-finalize-agenda-hook
 	    ;; remove mouse highlight - performance
 	    (lambda () (remove-text-properties
@@ -187,9 +281,12 @@ simple timestamp string."
     (add-to-list 'org-agenda-files (dmaz-joindirs dmaz-path-to-eoksni-dir "work/jslearning/jslearning.org"))))
 
 (defun dmaz-org-setup-onedrive-dir ()
+  (interactive))
+
+(defun dmaz-org-setup-dropbox-dir ()
   (interactive)
   (with-eval-after-load "org"
-    (setq org-directory (dmaz-joindirs (file-name-as-directory dmaz-path-to-onedrive-dir) "notes"))
+    (setq org-directory (dmaz-joindirs (file-name-as-directory dmaz-path-to-dropbox-dir) "notes"))
     (add-to-list 'org-agenda-files (dmaz-joindirs org-directory "life"))
     (add-to-list 'org-agenda-files (dmaz-joindirs org-directory "main.org"))
     (setq org-default-notes-file (dmaz-joindirs org-directory "main.org"))))
@@ -292,6 +389,38 @@ Skips capture tasks."
 
 (defun dmaz-is-scheduled-late (date-str)
   (string-match "Sched\.\\(.*\\)x:" date-str))
+
+(defun org-agenda-skip-scheduled-if-not-today ()
+"If this function returns nil, the current match should not be skipped.
+Otherwise, the function must return a position from where the search
+should be continued."
+  (ignore-errors
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (scheduled-day
+            (time-to-days
+              (org-time-string-to-time
+                (org-entry-get nil "SCHEDULED"))))
+          (now (time-to-days (current-time))))
+       (and scheduled-day
+            (not (= scheduled-day now))
+            subtree-end))))
+
+(defun org-agenda-skip-scheduled-if-hour ()
+"If this function returns nil, the current match should not be skipped.
+Otherwise, the function must return a position from where the search
+should be continued."
+  (let (beg end)
+    (org-back-to-heading t)
+    (setq beg (point)
+	  end (progn (outline-next-heading) (1- (point))))
+    (goto-char beg)
+    (and
+     (re-search-forward org-scheduled-time-hour-regexp end t)
+     end)))
+
+(defun dmaz-eq-time-and-time (time1 time2)
+  (and (not (time-less-p time1 time2))
+       (not (time-less-p time2 time1))))
 
 (defun dmaz-org-mode-hook () 
   (auto-fill-mode))

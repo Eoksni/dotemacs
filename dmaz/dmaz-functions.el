@@ -391,18 +391,7 @@ BEG and END (region to sort)."
   (insert (format-time-string "%d.%m.%Y %H:%M")))
 
 (defun dmaz-set-language-environment-hook ()
-  (setq default-process-coding-system '(utf-8 . cp1251))
-  ;; (when (equal current-language-environment "UTF-8")
-  ;;   (prefer-coding-system 'cp1251-dos)
-  ;;   (prefer-coding-system 'utf-8)
-  ;;   (setq-default default-input-method 'russian-computer)
-  ;;   (when (eq system-type 'windows-nt)
-  ;;     (set-terminal-coding-system 'cp866)
-  ;;     (set-file-name-coding-system 'cp1251)
-  ;;     (setq default-process-coding-system '(utf-8 . cp1251))
-  ;;     )
-  ;;   )
-  )
+  (setq default-process-coding-system '(utf-8 . utf-8)))
 
 (defun dmaz-rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."

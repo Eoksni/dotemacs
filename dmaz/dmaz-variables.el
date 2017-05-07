@@ -98,6 +98,11 @@ this is equivalent to `display-warning', using
     (eval-after-load 'dmaz-orgmode-init
       `(dmaz-org-setup-onedrive-dir))))
 
+(defun dmaz-custom-set-dropbox-dir (option-name new-value)
+  (when (eq option-name 'dmaz-path-to-dropbox-dir)
+    (eval-after-load 'dmaz-orgmode-init
+      `(dmaz-org-setup-dropbox-dir))))
+
 (defun dmaz-custom-actual-set-font (option-name new-value)
   (when (eq option-name 'dmaz-font-string)
     (set-frame-font new-value)
@@ -125,15 +130,6 @@ this is equivalent to `display-warning', using
               (funcall setfun option-name new-value)))))
   (set-default option-name new-value))
 
-(defcustom dmaz-path-to-dropbox
-  (getenv "DMAZ_DROPBOX_DIR")
-  "Path to Dropbox root directory. Note that this is set up
-using environment variable `DMAZ_DROPBOX_DIR'"
-  :type 'directory
-  :set 'dmaz-custom-set
-  :dmaz-custom-check 'dmaz-custom-check-dir
-  :group 'dmaz-paths)
-
 (defcustom dmaz-path-to-eoksni-dir
   (getenv "DMAZCFG_EOKSNI_DIR")
   "Path to Eoksni root directory. Note that this is set up
@@ -152,6 +148,16 @@ using environment variable `DMAZCFG_ONEDRIVE_DIR'"
   :set 'dmaz-custom-set
   :dmaz-custom-check 'dmaz-custom-check-dir
   :dmaz-custom-actual-set 'dmaz-custom-set-onedrive-dir
+  :group 'dmaz-paths)
+
+(defcustom dmaz-path-to-dropbox-dir
+  (getenv "DMAZCFG_DROPBOX_DIR")
+  "Path to Dropbox root directory. Note that this is set up
+using environment variable `DMAZCFG_DROPBOX_DIR'"
+  :type 'directory
+  :set 'dmaz-custom-set
+  :dmaz-custom-check 'dmaz-custom-check-dir
+  :dmaz-custom-actual-set 'dmaz-custom-set-dropbox-dir
   :group 'dmaz-paths)
 
 (defcustom dmaz-packages (list)

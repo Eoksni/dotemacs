@@ -91,6 +91,8 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
 %?"))))
  '(org-catch-invisible-edits (quote show-and-error))
  '(org-clock-in-switch-to-state (quote dmaz-clock-in-to-started))
+ '(org-clock-persist t)
+ '(org-clock-persist-query-resume nil)
  '(org-drill-add-random-noise-to-intervals-p t)
  '(org-enforce-todo-dependencies t)
  '(org-habit-graph-column 70)
