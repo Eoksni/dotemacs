@@ -15,9 +15,8 @@
 	      ([remap yank-pop] . ivy-next-line)
 	      ([remap execute-extended-command] . ivy-dispatching-done)))
 
-;; (use-package projectile
-;;   :defer t
-;;   :config
-;;   (counsel-projectile-on))
+(use-package counsel-projectile
+  :bind (:map projectile-command-map
+	      ("s r" . counsel-projectile-rg)))
 
 (provide 'dmaz-completions)

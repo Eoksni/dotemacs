@@ -54,7 +54,10 @@
  '(org-blank-before-new-entry (quote ((heading) (plain-list-item))))
  '(org-capture-templates
    (quote
-    (("t" "todo" entry
+    (("l" "clocked todo" entry
+      (file+headline org-default-notes-file "today")
+      "* STARTED %?" :clock-in t :clock-keep t)
+     ("t" "todo" entry
       (file+headline org-default-notes-file "INBOX inbox")
       "* TODO %?
 ")
@@ -78,9 +81,6 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
      ("b" "books" checkitem
       (file+headline org-default-notes-file "books")
       "")
-     ("m" "music" checkitem
-      (file+headline org-default-notes-file "music")
-      "")
      ("d" "drill" entry
       (file+headline org-default-notes-file "drill")
       "* Fact                         :drill:
@@ -88,7 +88,16 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
 :DATE_ADDED: %u
 :END:
 
-%?"))))
+%?")
+     ("m" "drill for mindmap" entry
+      (file+headline
+       (dmaz-joindirs org-directory "mindmap.org")
+       "drill")
+      "* %?                         :drill:
+:PROPERTIES:
+:DATE_ADDED: %u
+:END:
+"))))
  '(org-catch-invisible-edits (quote show-and-error))
  '(org-clock-in-switch-to-state (quote dmaz-clock-in-to-started))
  '(org-clock-persist t)
@@ -122,7 +131,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (mode-icons which-key js-comint org-plus-contrib vue-mode ag dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx counsel swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (counsel-projectile projectile-ripgrep counsel mode-icons which-key js-comint org-plus-contrib vue-mode dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
  '(popwin:special-display-config
    (quote
     ((help-mode)

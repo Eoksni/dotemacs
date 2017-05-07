@@ -25,7 +25,10 @@
 
 (require 'dmaz-window)
 
-(require 'dmaz-customize-after)
+(use-package projectile
+  :defer t
+  :config
+  (counsel-projectile-on))
 
 (require 'dmaz-orgmode-init)
 
@@ -69,4 +72,5 @@
   :config
   (dmaz-activate-keymaps))
 
+(require 'dmaz-customize-after)
 (provide 'dmaz-init)

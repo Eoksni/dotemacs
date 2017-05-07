@@ -5,7 +5,7 @@ This is my dotemacs - configuration directory for Emacs. Super Cool!
 ## Prerequisites (Windows 10)
 
 ```bat
-choco install ag
+choco install ripgrep
 ```
 
 For markdown
