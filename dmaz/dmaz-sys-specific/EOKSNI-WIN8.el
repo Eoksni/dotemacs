@@ -4,6 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Info-mode-hook (quote (dmaz-Info-mode-remap)))
+ '(auto-revert-verbose nil)
  '(blink-cursor-mode nil)
  '(company-tooltip-align-annotations t)
  '(current-language-environment (quote utf-8))
@@ -49,12 +50,13 @@
      (tags priority-down category-up)
      (search category-keep))))
  '(org-agenda-span (quote day))
+ '(org-agenda-window-setup (quote only-window))
  '(org-blank-before-new-entry (quote ((heading) (plain-list-item))))
  '(org-capture-templates
    (quote
     (("t" "todo" entry
       (file+headline org-default-notes-file "INBOX inbox")
-      "* TODO %?%c
+      "* TODO %?
 ")
      ("T" "today" entry
       (file+headline org-default-notes-file "today")
@@ -78,13 +80,23 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
       "")
      ("m" "music" checkitem
       (file+headline org-default-notes-file "music")
-      ""))))
+      "")
+     ("d" "drill" entry
+      (file+headline org-default-notes-file "drill")
+      "* Fact                         :drill:
+:PROPERTIES:
+:DATE_ADDED: %u
+:END:
+
+%?"))))
  '(org-catch-invisible-edits (quote show-and-error))
  '(org-clock-in-switch-to-state (quote dmaz-clock-in-to-started))
+ '(org-drill-add-random-noise-to-intervals-p t)
  '(org-enforce-todo-dependencies t)
  '(org-habit-graph-column 70)
  '(org-log-into-drawer t)
- '(org-modules (quote (org-habit)))
+ '(org-modules (quote (org-habit org-drill)))
+ '(org-show-notification-handler (quote dmaz-show-notification))
  '(org-src-fontify-natively t)
  '(org-startup-indented t)
  '(org-todo-keyword-faces

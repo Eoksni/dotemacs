@@ -4,10 +4,20 @@
 (require 'dmaz-general-config)
 (require 'dmaz-customize)
 
-;; (use-package dmaz-keybindings
-;;   :config
-;;   (dmaz-reverse-input-method 'russian-computer))
-(require 'dmaz-keybindings)
+(use-package dmaz-keybindings
+  :config
+
+  (if (not (daemonp))
+      (dmaz-reverse-input-method 'russian-computer)
+    (defun rev-inp-m-init (f)
+      (lexical-let ((frame f))
+	(run-at-time nil nil
+		     #'(lambda () (unless (and (daemonp) (eq frame terminal-frame))
+			       (dmaz-reverse-input-method 'russian-computer)
+			       (remove-hook 'after-make-frame-functions #'rev-inp-m-init))))
+	)
+      )
+    (add-hook 'after-make-frame-functions #'rev-inp-m-init)))
 
 (require 'dmaz-package)
 

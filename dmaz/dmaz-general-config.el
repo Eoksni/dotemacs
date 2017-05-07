@@ -21,4 +21,9 @@
                          (funcall interprogram-paste-function))))
     (when have-paste (push have-paste kill-ring))))
 
+;; (use-package grep
+;;   :defer t
+;;   :config
+;;   (setq find-program "C:\\Program Files (x86)\\GnuWin32\\bin\\find.exe"))
+
 (provide 'dmaz-general-config)

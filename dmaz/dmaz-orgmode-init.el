@@ -144,8 +144,6 @@
 ;;   )
 ;; (message "dmaz-orgmode-init.el stage 8 completed")
 
-
-
 (defun dmaz-show-notification (notification &optional title)
   (interactive "sNotification text: ")
   (let ((title (or title "Emacs")))
