@@ -472,7 +472,10 @@ should be continued."
   (and (cond
 	((string= tag "loud")
 	 (let ((hour (nth 2 (decode-time))))
-	   (or (< hour 9) (> hour 22)))))
+	   (or (< hour 9) (> hour 22))))
+	((string= tag "daytime")
+	 (let ((hour (nth 2 (decode-time))))
+	   (or (< hour 9) (> hour 17)))))
        (concat "-" tag)))
 
 (defvar-local dmaz-apply-auto-exclude--applied nil)
