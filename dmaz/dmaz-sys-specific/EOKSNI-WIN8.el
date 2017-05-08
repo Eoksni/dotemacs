@@ -107,6 +107,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
  '(org-clock-persist-query-resume nil)
  '(org-drill-add-random-noise-to-intervals-p t)
  '(org-enforce-todo-dependencies t)
+ '(org-extend-today-until 6)
  '(org-habit-graph-column 70)
  '(org-log-into-drawer t)
  '(org-modules (quote (org-habit org-drill)))

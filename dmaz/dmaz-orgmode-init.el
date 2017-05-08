@@ -17,8 +17,10 @@
   (require 'org-notify)
   (dmaz-disable-keys-for-function-in-keymap 'org-remove-file org-mode-map))
 
-(use-package org-random-compare
-  :commands org-compare-randomly)
+(use-package org-habit
+  :defer t
+  :config
+  (advice-add 'org-habit-parse-todo :around #'org-habit-parse-todo--respect-org-extend-today-until))
 
 (use-package org-agenda
   :defer t
@@ -446,6 +448,24 @@ should be continued."
 
 (defun dmaz-org-mode-hook () 
   (auto-fill-mode))
+
+(defun time-to-days--respect-org-extend-today-until (orig-fun time &rest args)
+  (let* ((decoded (decode-time time))
+	 (sec (nth 0 decoded))
+	 (min (nth 1 decoded))
+	 (hour (nth 2 decoded))
+	 (res (apply orig-fun time args)))
+    (if (or (>= hour org-extend-today-until) (and (= sec min hour 0)))
+	res
+      (- res 1))))
+
+(defun org-habit-parse-todo--respect-org-extend-today-until (orig-fun &rest args)
+  (advice-add 'time-to-days :around #'time-to-days--respect-org-extend-today-until)
+  (let ((res (apply orig-fun args)))
+    (advice-remove 'time-to-days #'time-to-days--respect-org-extend-today-until)
+    res
+    )
+  )
 
 (provide 'dmaz-orgmode-init)
 ;; (message "dmaz-orgmode-init.el stage 9.5 completed")
