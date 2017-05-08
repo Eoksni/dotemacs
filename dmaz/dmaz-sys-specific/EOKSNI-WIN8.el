@@ -54,9 +54,12 @@
  '(org-blank-before-new-entry (quote ((heading) (plain-list-item))))
  '(org-capture-templates
    (quote
-    (("l" "clocked todo" entry
+    (("f" "food" item
+      (file+headline org-default-notes-file "food")
+      "- %U %?" :prepend t)
+     ("l" "clocked todo" entry
       (file+headline org-default-notes-file "today")
-      "* STARTED %?" :clock-in t :clock-keep t)
+      "* STARTED %^{prompt}%?" :clock-in t :clock-keep t)
      ("t" "todo" entry
       (file+headline org-default-notes-file "INBOX inbox")
       "* TODO %?
@@ -131,7 +134,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (counsel-projectile projectile-ripgrep counsel mode-icons which-key js-comint org-plus-contrib vue-mode dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (git-commit-insert-issue counsel-projectile projectile-ripgrep counsel mode-icons which-key js-comint org-plus-contrib vue-mode dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
  '(popwin:special-display-config
    (quote
     ((help-mode)
