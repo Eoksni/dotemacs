@@ -525,4 +525,11 @@ toggle between real end and logical end of the buffer."
                    (define-key ,mode-map
                      [remap end-of-buffer] ',fname))))))
 
+(defun dmaz-show-clock-header ()
+  "Show the clock header in the minibuffer."
+  (interactive)
+  (when org-clock-heading
+    (message org-clock-heading)
+    (kill-new org-clock-heading)))
+
 (provide 'dmaz-functions)
