@@ -106,6 +106,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
  '(org-clock-in-switch-to-state (quote dmaz-clock-in-to-started))
  '(org-clock-persist t)
  '(org-clock-persist-query-resume nil)
+ '(org-clock-report-include-clocking-task t)
  '(org-drill-add-random-noise-to-intervals-p t)
  '(org-enforce-todo-dependencies t)
  '(org-extend-today-until 6)

@@ -15,6 +15,7 @@
   (add-hook 'org-mode-hook #'dmaz-org-mode-hook)
   :config  
   (require 'org-notify)
+  (advice-add 'org-clock-get-clocktable :around #'org-clock-get-clocktable--respect-org-extend-today-until)
   (dmaz-disable-keys-for-function-in-keymap 'org-remove-file org-mode-map))
 
 (use-package org-habit
@@ -183,52 +184,13 @@
 ;; ;; Targets start with the file name - allows creating level 1 tasks
 ;; ;;(setq org-refile-use-outline-path (quote file))
 
-;; (message "dmaz-orgmode-init.el stage 7 completed")
 ;; ;; Targets complete in steps so we start with filename
 ;; ;; TAB shows the next level of targets etc
 ;; ;;(setq org-outline-path-complete-in-steps t)
 ;; ;;;;;;;;;;;;;;
-;; (require 'org-install)
-;; (message "dmaz-orgmode-init.el stage 7.1 completed")
-;; ;; (add-to-list 'org-modules 'org-habits)
-;;                                         ;(add-to-list 'org-modules 'org-odt)
-;; (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-;; (message "dmaz-orgmode-init.el stage 7.11 completed")
-
-;; (setq org-log-done 'time)
-;; (message "dmaz-orgmode-init.el stage 7.12 completed")
-
-;; ;;(setq org-log-done 'note)
-
-;;                                         ;To save the clock history across Emacs sessions, use
-;; (setq org-clock-persist 'history)
-;; (message "dmaz-orgmode-init.el stage 7.13 completed")
-
-;; ;;(org-clock-persistence-insinuate)
-;;                                         ;To resume the clock under the assumption that you have worked on this task while outside Emacs
-;; (message "dmaz-orgmode-init.el stage 7.14 completed")
-;; (setq org-clock-persist t)
-;; (message "dmaz-orgmode-init.el stage 7.15 completed")
-;; ;; (setq org-clock-modeline-total 'current)
-;; (message "dmaz-orgmode-init.el stage 7.16 completed")
 ;; (setq org-special-ctrl-a/e t)
-;; (message "dmaz-orgmode-init.el stage 7.17 completed")
-;; (setq org-log-into-drawer t)
-;; (message "dmaz-orgmode-init.el stage 7.18 completed")
-;; (setq org-clock-into-drawer t)
-;; (message "dmaz-orgmode-init.el stage 7.2 completed")
 ;; (setq org-hierarchical-todo-statistics nil)
 ;;                                         ;(setq org-use-property-inheritance ('))
-
-;;                                         ;(add-to-list 'org-modules 'org-timer)
-
-;; ;;
-;;                                         ;Modify the org-clock-in so that a timer is started with the default
-;;                                         ;value except if a timer is already started :
-;; ;; (add-hook 'org-clock-in-hook '(lambda ()
-;;                                 ;; (org-timer-set-timer '(16))))
-;; ;; (add-hook 'org-clock-out-hook '(lambda ()  (org-timer-stop)))
-;; ;;
 
 ;; ;; The following is needed because habits "following days" are screwd up otherwise ;;
 ;; (add-hook 'org-agenda-mode-hook '(lambda () (setq show-trailing-whitespace nil)))
@@ -239,22 +201,6 @@
 ;; ;;   )
 
 ;; ;; (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-
-;; ;;                                                                                 ;;
-;; (defun org-my ()
-;;   "Visits file with main org-mode notes"
-;;   (interactive)
-;;   (find-file org-default-notes-file)
-;;   )
-;; (defun dmaz-org-agenda ()
-;;   (interactive)
-;;   (org-agenda)
-;;   )
-
-;; (defun dmaz-org-init ()
-;;   (interactive)
-;;   )
-;; (message "dmaz-orgmode-init.el stage 8 completed")
 
 (defun dmaz-show-notification (notification &optional title)
   (interactive "sNotification text: ")
@@ -492,6 +438,21 @@ should be continued."
 	    (push modifier org-agenda-tag-filter))))
     (if (not (null org-agenda-tag-filter))
 	(org-agenda-filter-apply org-agenda-tag-filter 'tag nil))))
+
+(defun org-matcher-time--respect-org-extend-today-until (time)
+  (let* ((decoded (decode-time time))
+	 (sec (nth 0 decoded))
+	 (min (nth 1 decoded))
+	 (hour (nth 2 decoded)))
+    (if (= 0 sec min hour)
+	(float-time (encode-time sec min (+ org-extend-today-until hour) (nth 3 decoded) (nth 4 decoded) (nth 5 decoded) (nth 6 decoded)))
+      time)))
+
+(defun org-clock-get-clocktable--respect-org-extend-today-until (orig-fun &rest args)
+  (advice-add 'org-matcher-time :filter-return #'org-matcher-time--respect-org-extend-today-until)
+  (let ((res (apply orig-fun args)))
+    (advice-remove 'org-matcher-time #'org-matcher-time--respect-org-extend-today-until)
+    res))
           
 (provide 'dmaz-orgmode-init)
 ;; (message "dmaz-orgmode-init.el stage 9.5 completed")
