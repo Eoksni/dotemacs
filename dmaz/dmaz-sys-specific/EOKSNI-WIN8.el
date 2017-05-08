@@ -41,6 +41,7 @@
  '(mode-icons-mode t)
  '(mouse-wheel-progressive-speed nil)
  '(org-M-RET-may-split-line (quote ((default))))
+ '(org-agenda-auto-exclude-function (quote dmaz-org-auto-exclude-function))
  '(org-agenda-cmp-user-defined (quote dmaz-agenda-sort))
  '(org-agenda-scheduled-leaders (quote ("" "Sched.%2dx: ")))
  '(org-agenda-sorting-strategy

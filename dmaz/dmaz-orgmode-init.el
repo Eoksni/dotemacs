@@ -24,11 +24,15 @@
 
 (use-package org-agenda
   :defer t
+  :bind (:map dmaz-mode-specific-map
+	      ("a" . org-agenda))
   :config  
   (dmaz-special-beginning-of-buffer org-agenda
     (org-agenda-next-item 1))
   (dmaz-special-end-of-buffer org-agenda
     (org-agenda-previous-item 1))
+  
+  (add-hook 'org-agenda-finalize-hook #'dmaz-org-finalize-agenda-hook)
   (add-to-list 'org-agenda-custom-commands 
 	       '("d" "daily start"
 		((agenda ""
@@ -120,14 +124,7 @@
 	       ;; 	 ;;  (org-agenda-cmp-user-defined #'(lambda (a b) (if (> (random) (random)) 1 -1)))
 	       ;; 	 ;;  (org-agenda-sorting-strategy '(user-defined-up)))
 	       ;; 	 )
-	       )
-  
-  (add-hook 'org-finalize-agenda-hook
-	    ;; remove mouse highlight - performance
-	    (lambda () (remove-text-properties
-		   (point-min) (point-max) '(mouse-face t))))
-  :bind (:map dmaz-mode-specific-map
-	      ("a" . org-agenda)))
+	       ))
 
 (use-package org-capture
   :bind (:map dmaz-mode-specific-map
@@ -449,6 +446,12 @@ should be continued."
 (defun dmaz-org-mode-hook () 
   (auto-fill-mode))
 
+(defun dmaz-org-finalize-agenda-hook () 
+  ;; remove mouse highlight - performance
+  (remove-text-properties
+   (point-min) (point-max) '(mouse-face t))
+  (dmaz-apply-auto-exclude))
+
 (defun time-to-days--respect-org-extend-today-until (orig-fun time &rest args)
   (let* ((decoded (decode-time time))
 	 (sec (nth 0 decoded))
@@ -463,9 +466,29 @@ should be continued."
   (advice-add 'time-to-days :around #'time-to-days--respect-org-extend-today-until)
   (let ((res (apply orig-fun args)))
     (advice-remove 'time-to-days #'time-to-days--respect-org-extend-today-until)
-    res
-    )
-  )
+    res))
 
+(defun dmaz-org-auto-exclude-function (tag)
+  (and (cond
+	((string= tag "loud")
+	 (let ((hour (nth 2 (decode-time))))
+	   (or (< hour 9) (> hour 22)))))
+       (concat "-" tag)))
+
+(defvar-local dmaz-apply-auto-exclude--applied nil)
+
+(defun dmaz-apply-auto-exclude ()
+  (interactive)
+  (when (and (not dmaz-apply-auto-exclude--applied) org-agenda-auto-exclude-function)
+    (setq dmaz-apply-auto-exclude--applied t)
+    (org-agenda-filter-show-all-tag)
+    (setq org-agenda-tag-filter nil)
+    (dolist (tag (org-agenda-get-represented-tags))
+      (let ((modifier (funcall org-agenda-auto-exclude-function tag)))
+	(if modifier
+	    (push modifier org-agenda-tag-filter))))
+    (if (not (null org-agenda-tag-filter))
+	(org-agenda-filter-apply org-agenda-tag-filter 'tag nil))))
+          
 (provide 'dmaz-orgmode-init)
 ;; (message "dmaz-orgmode-init.el stage 9.5 completed")

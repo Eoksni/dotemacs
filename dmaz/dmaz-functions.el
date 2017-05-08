@@ -532,4 +532,12 @@ toggle between real end and logical end of the buffer."
     (message org-clock-heading)
     (kill-new org-clock-heading)))
 
+(defun dmaz-insert-and-close-clock ()
+  "Inserts the clock header in the current buffer and closes current clock todo."
+  (interactive)
+  (when org-clock-heading
+    (insert org-clock-heading)
+    (let ((org-clock-out-switch-to-state "DONE"))
+      (org-clock-out))))
+
 (provide 'dmaz-functions)
