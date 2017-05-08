@@ -23,6 +23,10 @@
 (use-package org-agenda
   :defer t
   :config  
+  (dmaz-special-beginning-of-buffer org-agenda
+    (org-agenda-next-item 1))
+  (dmaz-special-end-of-buffer org-agenda
+    (org-agenda-previous-item 1))
   (add-to-list 'org-agenda-custom-commands 
 	       '("d" "daily start"
 		((agenda ""
