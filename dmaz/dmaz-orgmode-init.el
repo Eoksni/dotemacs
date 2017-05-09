@@ -11,6 +11,8 @@
 
 (use-package org
   :defer t
+  :bind (:map dmaz-goto-map
+	      ("r" . org-refile-goto-last-stored))
   :init
   (add-hook 'org-mode-hook #'dmaz-org-mode-hook)
   :config  
@@ -151,13 +153,7 @@
 ;; (add-hook 'org-mode-hook
 ;;           (lambda ()
 ;;             (auto-fill-mode t)
-;;             ;; (local-set-key (kbd "M-q") 'fill-individual-paragraphs)
 ;;             (local-set-key (kbd "C-c C-g") 'org-refile-goto-last-stored)
-;;             ;; Undefine C-c [ and C-c ] since this breaks my
-;;             ;; org-agenda files when directories are include It
-;;             ;; expands the files in the directories individually
-;;             (org-defkey org-mode-map "\C-c["    'undefined)
-;;             (org-defkey org-mode-map "\C-c]"    'undefined)
 ;;             (abbrev-mode 1)
 ;;             ) 'append)
 
@@ -165,42 +161,12 @@
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ;; refiling ;;
-;; ;; allow refiling into up to 5 levels of the headline trees in all org files
-;; (setq org-refile-targets
-;;       (quote ((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5))))
-;; ;; Stop using paths for refile targets - we file directly with IDO
-;; (setq org-refile-use-outline-path nil)
-
-;; ;; Targets complete directly with IDO
-;; (setq org-outline-path-complete-in-steps nil)
-
 ;; ;; Allow refile to create parent tasks with confirmation
 ;; (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
-;; ;; Use IDO for both buffer and file completion and ido-everywhere to t
-;; (setq org-completion-use-ido t)
-
-;; ;; Targets start with the file name - allows creating level 1 tasks
-;; ;;(setq org-refile-use-outline-path (quote file))
-
-;; ;; Targets complete in steps so we start with filename
-;; ;; TAB shows the next level of targets etc
-;; ;;(setq org-outline-path-complete-in-steps t)
-;; ;;;;;;;;;;;;;;
 ;; (setq org-special-ctrl-a/e t)
 ;; (setq org-hierarchical-todo-statistics nil)
 ;;                                         ;(setq org-use-property-inheritance ('))
-
-;; ;; The following is needed because habits "following days" are screwd up otherwise ;;
-;; (add-hook 'org-agenda-mode-hook '(lambda () (setq show-trailing-whitespace nil)))
-;; (message "dmaz-orgmode-init.el stage 7.3 completed")
-;; ;; (defun org-summary-todo (n-done n-not-done)
-;; ;;   "Switch entry to DONE when all subentries are done, to TODO otherwise."
-;; ;;   (if (= n-not-done 0) (org-todo "DONE"))
-;; ;;   )
-
-;; ;; (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
 (defun dmaz-show-notification (notification &optional title)
   (interactive "sNotification text: ")

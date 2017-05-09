@@ -103,6 +103,10 @@ this is equivalent to `display-warning', using
     (eval-after-load 'dmaz-orgmode-init
       `(dmaz-org-setup-dropbox-dir))))
 
+(defun dmaz-custom-set-dictionary-dir (option-name new-value)
+  (when (eq option-name 'dmaz-path-to-dictionary-dir)
+    (setenv "DICPATH" new-value)))
+
 (defun dmaz-custom-actual-set-font (option-name new-value)
   (when (eq option-name 'dmaz-font-string)
     (set-frame-font new-value)
@@ -158,6 +162,16 @@ using environment variable `DMAZCFG_DROPBOX_DIR'"
   :set 'dmaz-custom-set
   :dmaz-custom-check 'dmaz-custom-check-dir
   :dmaz-custom-actual-set 'dmaz-custom-set-dropbox-dir
+  :group 'dmaz-paths)
+
+(defcustom dmaz-path-to-dictionary-dir
+  (getenv "DICPATH")
+  "Path to Hunspell dictonary directory. Note that this is set up
+using environment variable `DICPATH'"
+  :type 'directory
+  :set 'dmaz-custom-set
+  :dmaz-custom-check 'dmaz-custom-check-dir
+  :dmaz-custom-actual-set 'dmaz-custom-set-dictionary-dir
   :group 'dmaz-paths)
 
 (defcustom dmaz-packages (list)

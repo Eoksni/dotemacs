@@ -6,6 +6,7 @@ This is my dotemacs - configuration directory for Emacs. Super Cool!
 
 ```bat
 choco install ripgrep
+choco install hunspell.portable
 ```
 
 For markdown
@@ -21,3 +22,5 @@ For emacs benchmark
 cd benchmark-init-git
 make
 ```
+
+
