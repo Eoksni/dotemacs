@@ -46,7 +46,9 @@
     (while (not (ignore-errors (dired-get-filename)))
       (dired-next-line 1)))
   (dmaz-special-end-of-buffer dired
-    (dired-previous-line 1)))
+    (dired-previous-line 1))
+  
+  (add-hook 'dired #'discover-mode-turn-on))
 
 (use-package markdown-mode
   :defer t

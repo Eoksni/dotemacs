@@ -12,6 +12,16 @@
   (setq popwin:special-display-config (quote ((help-mode) ("*tide-documentation*" :noselect t) (messages-buffer-mode :noselect t) (ag-mode))))
   (popwin-mode 1))
 
+;; (defvar dmaz-active-window (frame-selected-window))
+
+;; (defun dmaz-active-window-switch (&rest _)
+;;   (let ((active-window (frame-selected-window)))
+;;     (when (not (equal active-window dmaz-active-window))
+;; 	(setq dmaz-active-window active-window)
+;; 	(flash-crosshairs))))
+
+;; (add-hook 'post-command-hook #'dmaz-active-window-switch)
+
 ;; (require 'buffer-move)
 
 ;; (define-key dmaz-keys-minor-mode-map (kbd "<C-S-up>")     'buf-move-up)

@@ -4,6 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Info-mode-hook (quote (dmaz-Info-mode-remap)))
+ '(auto-dim-other-buffers-mode t)
  '(auto-revert-verbose nil)
  '(blink-cursor-mode nil)
  '(company-tooltip-align-annotations t)
@@ -22,6 +23,7 @@
  '(flycheck-check-syntax-automatically (quote (save idle-change mode-enabled)))
  '(flycheck-idle-change-delay 2.0)
  '(global-auto-revert-mode t)
+ '(global-discover-mode nil)
  '(global-dmaz-keys-minor-mode t nil (dmaz-keybindings))
  '(global-subword-mode t)
  '(help-mode-hook (quote (dmaz-help-mode-remap)))
@@ -137,7 +139,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (git-commit-insert-issue counsel-projectile projectile-ripgrep counsel mode-icons which-key js-comint org-plus-contrib vue-mode dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (discover js2-refactor auto-dim-other-buffers git-commit-insert-issue counsel-projectile projectile-ripgrep counsel mode-icons which-key js-comint org-plus-contrib vue-mode dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
  '(popwin:special-display-config
    (quote
     ((help-mode)
@@ -169,4 +171,4 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(auto-dim-other-buffers-face ((t (:background "gray20")))))
