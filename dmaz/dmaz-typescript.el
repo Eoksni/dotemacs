@@ -18,6 +18,17 @@
   :init
   (add-hook 'inferior-js-mode-hook #'dmaz-inferior-js-mode-hook-setup t))
 
+(use-package js2-refactor
+  :defer t
+  :bind (:map js2-refactor-mode-map
+	      ([remap move-text-up] . js2r-move-line-up)
+	      ([remap move-text-down] . js2r-move-line-down)
+	      )
+  :init
+  (add-hook 'js2-mode-hook #'js2-refactor-mode)
+  :config
+  (js2r-add-keybindings-with-prefix "C-c C-m"))
+
 (use-package tide
   :defer t
   :diminish tide-mode
