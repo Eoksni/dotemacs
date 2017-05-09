@@ -1,5 +1,7 @@
 (add-to-list 'process-coding-system-alist '("growlnotify" utf-8 . cp1251))
 
+(define-key dmaz-mode-specific-map (kbd "C-x C-r") 'dmaz-show-clockreport)
+
 (use-package org-clock
   :defer 5
   :commands (org-clock-save org-clock-load)
@@ -18,6 +20,7 @@
   :config  
   (require 'org-notify)
   (advice-add 'org-clock-get-clocktable :around #'org-clock-get-clocktable--respect-org-extend-today-until)
+
   (dmaz-disable-keys-for-function-in-keymap 'org-remove-file org-mode-map))
 
 (use-package org-habit
@@ -411,7 +414,7 @@ should be continued."
 	 (min (nth 1 decoded))
 	 (hour (nth 2 decoded)))
     (if (= 0 sec min hour)
-	(float-time (encode-time sec min (+ org-extend-today-until hour) (nth 3 decoded) (nth 4 decoded) (nth 5 decoded) (nth 6 decoded)))
+	(float-time (encode-time sec min (+ org-extend-today-until hour) (nth 3 decoded) (nth 4 decoded) (nth 5 decoded)))
       time)))
 
 (defun org-clock-get-clocktable--respect-org-extend-today-until (orig-fun &rest args)
@@ -419,6 +422,34 @@ should be continued."
   (let ((res (apply orig-fun args)))
     (advice-remove 'org-matcher-time #'org-matcher-time--respect-org-extend-today-until)
     res))
-          
+
+(defun org-matcher-time--from-scram-to-scram (time)
+  (let* ((decoded (decode-time time))
+	 (sec (nth 0 decoded))
+	 (min (nth 1 decoded))
+	 (hour (nth 2 decoded)))
+    (if (= 0 sec min hour)
+	(float-time (encode-time sec min (+ 17 hour) (nth 3 decoded) (nth 4 decoded) (nth 5 decoded)))
+      time)))
+
+(defun dmaz-show-clockreport (clocktable-start clocktable-end)
+  (interactive "sFrom time (default <-1d>): \nsTo time (default <today>): ")
+  (when (equal clocktable-start "") (setq clocktable-start "<-1d>"))
+  (when (equal clocktable-end "") (setq clocktable-end "<today>"))  
+  (let ((org-agenda-files (org-agenda-files nil 'ifmode))
+	(p (copy-sequence org-agenda-clockreport-parameter-plist))
+	tbl)
+    (setq p (org-plist-delete p :block))
+    (setq p (plist-put p :tstart clocktable-start))
+    (setq p (plist-put p :tend clocktable-end))
+    (setq p (plist-put p :scope 'agenda))
+    
+    (advice-add 'org-matcher-time :filter-return #'org-matcher-time--from-scram-to-scram)
+    (setq tbl (apply 'org-clock-get-clocktable p))
+    (advice-remove 'org-matcher-time #'org-matcher-time--from-scram-to-scram)
+    
+    (switch-to-buffer-other-window  (generate-new-buffer "*dmaz-clockreport*"))
+    (insert tbl)))
+
 (provide 'dmaz-orgmode-init)
 ;; (message "dmaz-orgmode-init.el stage 9.5 completed")
