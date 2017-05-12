@@ -175,7 +175,7 @@
   (interactive "sNotification text: ")
   (let ((title (or title "Emacs")))
     (start-process "emacs-timer-notification" nil
-                   "growlnotify" (format "/t:%s" title) "/i:E:\\eoksni-dir\\portable\\emacs\\dotemacs\\emacs.png" notification)))
+                   dmaz-growlnotify-command (format "/t:%s" title) (concat "/i:" (dmaz-joindirs user-emacs-directory "emacs.png")) notification)))
 
 (defun dmaz-org-notify-action-notify (plist)
   "Pop up a notification window."

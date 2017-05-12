@@ -71,7 +71,20 @@ this is equivalent to `display-warning', using
                   nil)
               (warn "Value %s of variable %s is not a readable file" new-value option-name)
               nil)
-          (warn "File %s corresponding to %s does not exist and couldn't be created.")
+          (warn "File %s corresponding to %s does not exist and couldn't be created." new-value option-name)
+          nil))
+    (warn "Value %s of variable %s is not a path to directory (not a string)" new-value option-name)
+    nil))
+
+(defun dmaz-custom-check-file (option-name new-value)
+  (if (stringp new-value)
+      (progn
+        (if (file-exists-p new-value)
+            (if (file-readable-p new-value)
+                t
+              (warn "Value %s of variable %s is not a readable file" new-value option-name)
+              nil)
+          (warn "File %s corresponding to %s does not exist." new-value option-name)
           nil))
     (warn "Value %s of variable %s is not a path to directory (not a string)" new-value option-name)
     nil))
@@ -172,6 +185,14 @@ using environment variable `DICPATH'"
   :set 'dmaz-custom-set
   :dmaz-custom-check 'dmaz-custom-check-dir
   :dmaz-custom-actual-set 'dmaz-custom-set-dictionary-dir
+  :group 'dmaz-paths)
+
+(defcustom dmaz-growlnotify-command
+  "C:\\Program Files (x86)\\Growl for Windows\\growlnotify.exe"
+  "Path to growlnotify command"
+  :type 'file
+  :set 'dmaz-custom-set
+  :dmaz-custom-check 'dmaz-custom-check-file
   :group 'dmaz-paths)
 
 (defcustom dmaz-packages (list)
