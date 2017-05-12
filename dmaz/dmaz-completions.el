@@ -1,7 +1,7 @@
 (use-package ivy 
   :diminish ivy-mode
   :bind (:map dmaz-keys-minor-mode-map
-	      ("C-s" . swiper)
+	      ([remap isearch-forward] . swiper)
 	      :map dmaz-mode-specific-map
 	      ("r" . ivy-resume)))
 
@@ -10,6 +10,8 @@
 	      ([remap find-file] . counsel-find-file)
 	      ;; ([remap yank-pop] . counsel-yank-pop)
 	      ([remap execute-extended-command] . counsel-M-x)
+	      ([remap describe-function] . counsel-describe-function)
+	      ([remap describe-variable] . counsel-describe-variable)
 	      :map dmaz-ctl-x-map
 	      ("l" . counsel-locate)	      
 	      :map ivy-minibuffer-map
