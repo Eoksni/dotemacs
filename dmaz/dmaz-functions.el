@@ -542,18 +542,20 @@ toggle between real end and logical end of the buffer."
 
 (defun dmaz-parse-vscode-formatting (f)
   "Parses `f' as .vscode/settings.json to get formatting options suitable for `tide-format-options',
-(setq tide-format-options (dmaz-parse-vscode-formatting \".vscode/settings.json\"))"
-  (let* ((file-contents (with-temp-buffer
+  (setq tide-format-options (dmaz-parse-vscode-formatting \".vscode/settings.json\"))"
+
+  (let* ((regexp "^[^/]*\"javascript\\.format\\.\\(.*\\)\": \\([a-z]*\\)")
+	 (file-contents (with-temp-buffer
 			  (insert-file-contents f)
 			  (buffer-substring-no-properties
 			   (point-min)
 			   (point-max))))
 	 (string-list (split-string file-contents "\n" t))
 	 (filtered-list (remove-if-not #'(lambda (s)
-					   (string-match ".*\"javascript\\.format\\.\\(.*\\)\": \\([a-z]*\\)" s))
+					   (string-match regexp s))
 				       string-list))
 	 (values-list (mapcan #'(lambda (s) 
-				  (string-match ".*\"javascript\\.format\\.\\(.*\\)\": \\([a-z]*\\)" s)
+				  (string-match regexp s)
 				  (let ((name (match-string 1 s))
 					(value (if (equal (match-string 2 s) "true") t nil)))
 				    `(,(intern (concat ":" name)) ,value))
