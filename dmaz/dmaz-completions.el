@@ -5,6 +5,10 @@
 	      :map dmaz-mode-specific-map
 	      ("r" . ivy-resume)))
 
+(use-package swiper
+  :bind (:map swiper-map
+	      ([remap ivy-reverse-i-search] . ivy-previous-line-or-history)))
+
 (use-package counsel
   :bind (:map dmaz-keys-minor-mode-map
 	      ([remap find-file] . counsel-find-file)
