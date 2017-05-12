@@ -16,7 +16,7 @@
  '(delete-selection-mode t)
  '(dmaz-font-string "Consolas-11")
  '(dmaz-path-to-dictionary-dir "E:\\eoksni-dir\\portable\\hunspell_dictionaries")
- '(editorconfig-mode t)
+ '(editorconfig-mode nil)
  '(electric-pair-mode t)
  '(emacs-lisp-mode-hook (quote (eldoc-mode prettify-symbols-mode)))
  '(eshell-history-file-name
@@ -35,6 +35,7 @@
  '(ivy-count-format "(%d/%d) ")
  '(ivy-mode t)
  '(ivy-use-virtual-buffers t)
+ '(js2-strict-trailing-comma-warning nil)
  '(ls-lisp-dirs-first t)
  '(ls-lisp-ignore-case t)
  '(ls-lisp-use-string-collate nil)

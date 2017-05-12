@@ -9,7 +9,14 @@
   :config
   ;; cant use it with customize because it is not autoloaded
   (setq popwin:popup-window-height 25)
-  (setq popwin:special-display-config (quote ((help-mode) ("*tide-documentation*" :noselect t) (messages-buffer-mode :noselect t) (ag-mode))))
+  (setq popwin:special-display-config 
+	(quote (
+		(help-mode)
+		("*tide-documentation*" :noselect t)
+		(messages-buffer-mode :noselect t)
+		(ag-mode)
+		(compilation-mode)
+		)))
   (popwin-mode 1))
 
 ;; (defvar dmaz-active-window (frame-selected-window))

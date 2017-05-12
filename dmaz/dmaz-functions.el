@@ -365,7 +365,7 @@ BEG and END (region to sort)."
 
 (defun dmaz-joindirs (root &rest dirs)
   "Joins a series of directories together, like Python's os.path.join,
-  (dotemacs-joindirs \"/tmp\" \"a\" \"b\" \"c\") => /tmp/a/b/c"
+  (dmaz-joindirs \"/tmp\" \"a\" \"b\" \"c\") => /tmp/a/b/c"
 
   (if (not dirs)
       root
@@ -539,5 +539,46 @@ toggle between real end and logical end of the buffer."
     (insert org-clock-heading)
     (let ((org-clock-out-switch-to-state "DONE"))
       (org-clock-out))))
+
+(defun dmaz-parse-vscode-formatting (f)
+  "Parses `f' as .vscode/settings.json to get formatting options suitable for `tide-format-options',
+(setq tide-format-options (dmaz-parse-vscode-formatting \".vscode/settings.json\"))"
+  (let* ((file-contents (with-temp-buffer
+			  (insert-file-contents f)
+			  (buffer-substring-no-properties
+			   (point-min)
+			   (point-max))))
+	 (string-list (split-string file-contents "\n" t))
+	 (filtered-list (remove-if-not #'(lambda (s)
+					   (string-match ".*\"javascript\\.format\\.\\(.*\\)\": \\([a-z]*\\)" s))
+				       string-list))
+	 (values-list (mapcan #'(lambda (s) 
+				  (string-match ".*\"javascript\\.format\\.\\(.*\\)\": \\([a-z]*\\)" s)
+				  (let ((name (match-string 1 s))
+					(value (if (equal (match-string 2 s) "true") t nil)))
+				    `(,(intern (concat ":" name)) ,value))
+				  ) filtered-list)))
+    values-list))
+
+(defun dmaz-find-dirlocals-dir ()
+  "Finds directory where closest .dir-locals file is located"
+  (interactive)
+  (file-name-directory
+   (let ((d (dir-locals-find-file ".")))
+     (if (stringp d) d (car d)))))
+
+(defun dmaz-plist-merge (&rest plists)
+  (if plists
+      (let ((result (copy-sequence (car plists))))
+        (while (setq plists (cdr plists))
+          (let ((plist (car plists)))
+            (while plist
+              (setq result (plist-put result (car plist) (car (cdr plist)))
+                    plist (cdr (cdr plist))))))
+        result)
+    nil))
+
+(defun dmaz-locate-file-uptree (f) 
+  (dmaz-joindirs (locate-dominating-file "." f) f))
 
 (provide 'dmaz-functions)

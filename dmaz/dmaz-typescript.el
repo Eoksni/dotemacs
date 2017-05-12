@@ -38,10 +38,26 @@
   (add-hook 'typescript-mode-hook #'dmaz-setup-tide-mode)
   (add-hook 'js2-mode-hook #'dmaz-setup-tide-mode)
   :config
+  ;; default formatting options correspond to vscode formatting
+  (setq tide-format-options '(
+			      :insertSpaceAfterCommaDelimiter t
+							      :insertSpaceAfterSemicolonInForStatements t
+							      :insertSpaceBeforeAndAfterBinaryOperators t
+							      :insertSpaceAfterKeywordsInControlFlowStatements t
+							      :insertSpaceAfterFunctionKeywordForAnonymousFunctions t
+							      :insertSpaceBeforeFunctionParenthesis nil
+							      :insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis nil
+							      :insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets nil
+							      :insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces nil
+							      :insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces nil
+							      :placeOpenBraceOnNewLineForFunctions nil
+							      :placeOpenBraceOnNewLineForControlBlocks nil))
   (advice-add 'tide-doc-buffer :filter-return #'dmaz-tide-doc-buffer--remove-ctrl-M))
 
 (defun dmaz-setup-tide-mode ()
   (interactive)
+  ;; must go before tide-setup
+  (dmaz-apply-formatting-options)
   (tide-setup)
   
   (flycheck-mode 1)
@@ -50,6 +66,12 @@
   (company-mode 1)
   (add-node-modules-path) ;; to make flycheck use local versions of eslint etc
   (add-hook 'before-save-hook #'tide-format-before-save))
+
+(defun dmaz-apply-formatting-options () 
+  (let* ((settings-file (dmaz-locate-file-uptree ".vscode/settings.json"))
+	 (local-format-options (dmaz-parse-vscode-formatting settings-file)))
+    (make-local-variable 'tide-format-options)
+    (setq tide-format-options (dmaz-plist-merge tide-format-options local-format-options))))
 
 (defun dmaz-tide-doc-buffer--remove-ctrl-M (buffer)
   (with-current-buffer buffer 

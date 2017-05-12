@@ -66,6 +66,9 @@
 
 (require 'dmaz-typescript)
 
+(use-package vue-mode
+  :mode "\\.vue\\'")
+
 (use-package restclient-mode
   :mode "\\.rest\\'")
 

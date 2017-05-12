@@ -2,7 +2,8 @@
   :defer 10
   :bind (:map dmaz-ctl-x-map
 	      ("g" . magit-status))
-  :config
-  (add-to-list 'git-commit-mode-hook #'git-commit-insert-issue-mode))
+  :init
+  (add-hook 'git-commit-mode-hook #'git-commit-insert-issue-mode)
+  (add-hook 'git-rebase-mode #'turn-off-dmaz-keys-minor-mode))
 
 (provide 'dmaz-magit)

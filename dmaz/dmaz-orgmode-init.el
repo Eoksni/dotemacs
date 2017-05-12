@@ -384,7 +384,9 @@ should be continued."
     res))
 
 (defun dmaz-org-auto-exclude-function (tag)
+  ;; t if want to exclude
   (and (cond
+	((string= tag "drill") t)
 	((string= tag "loud")
 	 (let ((hour (nth 2 (decode-time))))
 	   (or (< hour 9) (> hour 22))))
