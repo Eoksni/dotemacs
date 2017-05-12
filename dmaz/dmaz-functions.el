@@ -583,4 +583,48 @@ toggle between real end and logical end of the buffer."
 (defun dmaz-locate-file-uptree (f) 
   (dmaz-joindirs (locate-dominating-file "." f) f))
 
+(defun dmaz-yank-filepath (&rest pop)
+  (interactive)
+  (unless pop (setq pop nil))
+  (let* ((text-to-yank (with-temp-buffer
+			 (setq last-command 'yank)
+			 (call-interactively #'yank)
+			 (when pop (call-interactively #'yank-pop))
+			 (buffer-substring-no-properties
+			  (point-min)
+			  (point-max))))
+	 (actual-typings (expand-file-name text-to-yank))
+	 (trimmed-text (if (string-match "/$" actual-typings)
+			   (replace-match "" t t actual-typings)
+			 actual-typings))
+	 (detrimmed-text (if (file-accessible-directory-p trimmed-text) 
+			     (concat trimmed-text "/")
+			   trimmed-text)))
+    (dmaz-type-string-2 detrimmed-text)))
+
+(defun dmaz-yank-pop-filepath ()
+  (interactive)
+  (dmaz-yank-filepath t))
+
+(defun dmaz-type-string (s)
+  (mapc #'dmaz-type-char s))
+
+(defun dmaz-type-string-2 (s)
+  (setq unread-command-events (listify-key-sequence s)))
+
+(defun dmaz-type-char-from-string (c)
+  (let ((last-command-event (string-to-char c)))
+    (call-interactively (key-binding c))))
+
+(defun dmaz-type-char (c)
+  (let ((last-command-event c))
+    (call-interactively (key-binding (char-to-string c)))))
+
+(defun dmaz-get-text-to-yank ()
+  (with-temp-buffer
+    (insert (current-kill 0 t))
+    (buffer-substring-no-properties
+     (point-min)
+     (point-max))))
+
 (provide 'dmaz-functions)
