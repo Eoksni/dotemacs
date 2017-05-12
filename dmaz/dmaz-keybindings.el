@@ -151,11 +151,14 @@
 (define-key dmaz-keys-minor-mode-map (kbd "<C-return>") 'dmaz-open-line-below)
 (define-key dmaz-keys-minor-mode-map (kbd "<C-S-return>") 'dmaz-open-line-above)
 
-(use-package ace-jump-mode
+(use-package avy
   :bind (:map dmaz-dmaz-map
-	      ("SPC" . ace-jump-mode)
+	      ("SPC" . avy-goto-char)
 	      :map dmaz-keys-minor-mode-map
-	      ([remap goto-char] . ace-jump-mode)))
+	      ([remap goto-char] . avy-goto-char)
+	      :map dmaz-goto-map
+	      ("w" . avy-goto-word-1)
+	      ("i" . avy-goto-char-timer)))
 
 (use-package move-text
   :bind (:map dmaz-keys-minor-mode-map

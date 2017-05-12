@@ -33,6 +33,7 @@
  '(ispell-program-name
    "C:/ProgramData/chocolatey/lib/hunspell.portable/tools/bin/hunspell.exe")
  '(ivy-count-format "(%d/%d) ")
+ '(ivy-extra-directories nil)
  '(ivy-mode t)
  '(ivy-use-virtual-buffers t)
  '(js2-strict-trailing-comma-warning nil)
@@ -40,6 +41,7 @@
  '(ls-lisp-ignore-case t)
  '(ls-lisp-use-string-collate nil)
  '(ls-lisp-verbosity (quote (links)))
+ '(magit-completing-read-function (quote ivy-completing-read))
  '(make-backup-files nil)
  '(mark-even-if-inactive t)
  '(markdown-command "C:\\Users\\Dmitriy\\AppData\\Local\\Pandoc\\pandoc.exe")
@@ -146,7 +148,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (discover js2-refactor auto-dim-other-buffers git-commit-insert-issue counsel-projectile projectile-ripgrep counsel mode-icons which-key js-comint org-plus-contrib vue-mode dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text ace-jump-mode expand-region iflipb ivy-hydra flx swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
+    (avy discover js2-refactor auto-dim-other-buffers git-commit-insert-issue counsel-projectile projectile-ripgrep counsel mode-icons which-key js-comint org-plus-contrib vue-mode dired-single projectile add-node-modules-path tide js2-mode company magit markdown-mode popwin multiple-cursors move-text expand-region iflipb ivy-hydra flx swiper ivy use-package restclient visual-regexp-steroids visual-regexp)))
  '(popwin:special-display-config
    (quote
     ((help-mode)
