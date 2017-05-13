@@ -33,7 +33,7 @@
  '(ispell-program-name
    "C:/ProgramData/chocolatey/lib/hunspell.portable/tools/bin/hunspell.exe")
  '(ivy-count-format "(%d/%d) ")
- '(ivy-extra-directories nil)
+ '(ivy-extra-directories (quote ("./")))
  '(ivy-mode t)
  '(ivy-use-virtual-buffers t)
  '(js2-strict-trailing-comma-warning nil)
