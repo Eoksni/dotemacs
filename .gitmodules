@@ -4,3 +4,6 @@
 [submodule "benchmark-init-git"]
 	path = benchmark-init-git
 	url = https://github.com/dholm/benchmark-init-el
+[submodule "spacemacs"]
+	path = spacemacs
+	url = https://github.com/syl20bnr/spacemacs

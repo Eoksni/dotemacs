@@ -10,25 +10,26 @@
 ;;   (make-directory server-auth-dir t))
 ;; (ignore-errors (server-start))
 
-;; Turn off mouse interface early in startup to avoid momentary display
-(dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
-  (when (fboundp mode) (funcall mode -1)))
-
-(let ((new-user-emacs-dir (getenv "DMAZCFG_DOT_EMACS_DIR")))
+(let ((new-user-emacs-dir (file-name-directory load-file-name)))
   (when new-user-emacs-dir
     (setq user-emacs-directory new-user-emacs-dir)))
-(add-to-list 'load-path (concat user-emacs-directory "dmaz/"))
-
-(require 'dmaz-macros)
 
 (when (getenv "DMAZ_EMACSBENCHMARK")
   (add-to-list 'load-path (concat user-emacs-directory "benchmark-init-git/"))
   (require 'benchmark-init-loaddefs)
   (benchmark-init/activate))
 
-(require 'dmaz-init)
+;; ++spacemacs initialization
+(setq package-user-dir (concat user-emacs-directory "elpa/"))
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+ ("org" . "http://orgmode.org/elpa/")
+ ("gnu" . "https://elpa.gnu.org/packages/")))
+(package-initialize)
+(setq spacemacs-start-directory (concat user-emacs-directory "spacemacs/"))
+(setenv "SPACEMACSDIR" (concat user-emacs-directory ".spacemacs.d/"))
+(load-file (concat spacemacs-start-directory "init.el"))
+;; --spacemacs initialization
 
 (message "init.el finished")
 (when (getenv "DMAZ_EMACSBENCHMARK")
   (benchmark-init/show-durations-tree))
-
