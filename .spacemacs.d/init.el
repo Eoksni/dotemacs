@@ -323,7 +323,7 @@ you should place your code here."
 
   (funcall (intern (concat "dmaz-" system-name "/user-config"))))
 
-(defun dmaz-eoksni-win8/user-config ()
+(defun dmaz-EOKSNI-WIN8/user-config ()
   (setq magit-repository-directories '("E:/eoksni-dir/work/jslearning")))
 
 ;; Do not write anything past this comment. This is where Emacs will
