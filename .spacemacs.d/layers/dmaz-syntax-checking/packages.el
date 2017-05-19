@@ -2,6 +2,7 @@
   '(
     add-node-modules-path
     flycheck
+    markdown-mode
     ))
 
 ;; I have no idea why, but it is always nil at the initialization
@@ -12,3 +13,6 @@
 
 (defun dmaz-syntax-checking/post-init-flycheck ()
   (add-hook 'flycheck-mode-hook #'add-node-modules-path))
+
+(defun dmaz-syntax-checking/post-init-markdown-mode ()
+  (spacemacs/add-flycheck-hook 'markdown-mode))
