@@ -179,7 +179,7 @@ should be continued."
              (or (< hour 9) (> hour 22))))
           ((string= tag "daytime")
            (let ((hour (nth 2 (decode-time))))
-             (or (< hour 9) (> hour 17)))))
+             (or (< hour 9) (> hour 19)))))
          (concat "-" tag)))
 
   (defun dmaz-org/apply-auto-exclude ()

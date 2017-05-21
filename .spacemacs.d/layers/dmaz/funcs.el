@@ -38,3 +38,10 @@ If point was already at the beginning of line, move to begin of indentation inst
 (defun dmaz/eq-time-and-time (time1 time2)
   (and (not (time-less-p time1 time2))
        (not (time-less-p time2 time1))))
+
+(defun dmaz/play-sound-file-async (file)
+  "Plys with some overhead, but at least doesn't freeze Emacs.
+Took from https://github.com/lolownia/org-pomodoro/issues/41#issuecomment-113898387"
+  (let ((command (car command-line-args)))
+    (start-process "play-sound-file-async" nil command "-Q" "--batch" "--eval"
+                   (format "(play-sound-file \"%s\")" file))))

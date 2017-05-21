@@ -22,16 +22,25 @@
     (add-hook 'kill-emacs-hook 'org-clock-save)
     (org-clock-load))
 
+  (use-package org-pomodoro
+    :defer t
+    :init
+    (setq org-pomodoro-short-break-length 17)
+    (setq org-pomodoro-long-break-length 30)
+    (setq org-pomodoro-length 52)
+    (setq org-pomodoro-audio-player "E:\\eoksni-dir\\portable\\mplayer-svn-37931\\mplayer.exe"))
+
   ;; org configuration
   (use-package org
     :defer t
     :config
-    (setq spaceline-org-clock-p t)
+    (spaceline-toggle-org-clock-on)
     (dmaz-org/setup-eoksni-dir)
     (dmaz-org/setup-dropbox-dir)
     )
 
   (setq org-modules '(org-drill org-habit))
+  (setq org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM_T")
   (defvar-local dmaz-org/apply-auto-exclude--applied nil)
   (advice-add 'org-clock-get-clocktable :around #'dmaz-org/clock-get-clocktable--respect-org-extend-today-until)
   (setq
