@@ -11,6 +11,8 @@
 (defun dmaz-projectile/post-init-projectile ()
   (use-package projectile
     :defer t
+    :config
+    (setq projectile-switch-project-action (quote projectile-dired))
     :init
     (spacemacs/set-leader-keys
       "ps" 'counsel-projectile-rg)))
