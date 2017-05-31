@@ -12,7 +12,8 @@
     :defer t))
 
 (defun dmaz-syntax-checking/post-init-flycheck ()
-  (add-hook 'flycheck-mode-hook #'add-node-modules-path))
+  (add-hook 'flycheck-mode-hook #'add-node-modules-path)
+  (flycheck-add-mode 'javascript-eslint 'typescript-mode))
 
 (defun dmaz-syntax-checking/post-init-markdown-mode ()
   (spacemacs/add-flycheck-hook 'markdown-mode))

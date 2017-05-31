@@ -34,7 +34,7 @@
   (use-package org
     :defer t
     :config
-    (spaceline-toggle-org-clock-on)
+    (spacemacs/toggle-mode-line-org-clock-on)
     (dmaz-org/setup-eoksni-dir)
     (dmaz-org/setup-dropbox-dir)
     )
