@@ -105,3 +105,21 @@ Took from https://github.com/lolownia/org-pomodoro/issues/41#issuecomment-113898
           (kill-buffer nil))))
     )
   )
+
+(defun dmaz/ispell-comments-and-strings ()
+  "Check comments and strings in the current buffer for spelling errors."
+  (interactive)
+  (goto-char (point-min))
+  (let (state done)
+    (while (not done)
+      (setq done t)
+      (setq state (parse-partial-sexp (point) (point-max)
+                                      nil nil state 'syntax-table))
+      (if (or (nth 3 state) (nth 4 state))
+          (let ((start (point)))
+            (setq state (parse-partial-sexp start (point-max)
+                                            nil nil state 'syntax-table))
+            (if (or (nth 3 state) (nth 4 state))
+                (error "Unterminated string or comment"))
+            (save-excursion
+              (setq done (not (ispell-region start (- (point) 1))))))))))
