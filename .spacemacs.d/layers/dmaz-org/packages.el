@@ -69,6 +69,10 @@
       (file+headline org-default-notes-file "INBOX inbox")
       "* TODO %?
 ")
+     ("a" "work-agenda" entry
+      (file+datetree+prompt dmaz-org/work-agenda-file)
+      "* TODO %?
+")
      ("T" "today" entry
       (file+headline org-default-notes-file "today")
       "* TODO %?
