@@ -12,6 +12,7 @@
   (use-package projectile
     :defer t
     :config
+    (setq projectile-sort-order 'default)
     (setq projectile-switch-project-action (quote projectile-dired))
     :init
     (spacemacs/set-leader-keys
