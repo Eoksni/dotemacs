@@ -34,21 +34,21 @@
 
 (require 'dmaz-magit)
 
-(use-package dired
-  :bind (:map dired-mode-map
-	      ([return] . dired-single-buffer)
-	      ("^" . dmaz-dired-single-up))
-  :config
-  ;; replace dired mouse interaction with dired-single one
-  (defalias 'dired-mouse-find-file-other-window 'dired-single-buffer-mouse)
+;; (use-package dired
+;;   :bind (:map dired-mode-map
+;; 	      ([return] . dired-single-buffer)
+;; 	      ("^" . dmaz-dired-single-up))
+;;   :config
+;;   ;; replace dired mouse interaction with dired-single one
+;;   (defalias 'dired-mouse-find-file-other-window 'dired-single-buffer-mouse)
 
-  (dmaz-special-beginning-of-buffer dired
-    (while (not (ignore-errors (dired-get-filename)))
-      (dired-next-line 1)))
-  (dmaz-special-end-of-buffer dired
-    (dired-previous-line 1))
-  
-  (add-hook 'dired #'discover-mode-turn-on))
+;;   (dmaz-special-beginning-of-buffer dired
+;;     (while (not (ignore-errors (dired-get-filename)))
+;;       (dired-next-line 1)))
+;;   (dmaz-special-end-of-buffer dired
+;;     (dired-previous-line 1))
+;;   ;; (add-hook 'dired #'discover-mode-turn-on)
+;;   )
 
 (use-package markdown-mode
   :defer t

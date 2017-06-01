@@ -5,6 +5,8 @@
     tide
     git-commit-insert-issue
     vue-mode
+    dired
+    dired-single
     ))
 
 (defun dmaz/post-init-ranger ()
@@ -44,3 +46,19 @@
     :defer t))
 
 
+(defun dmaz/init-dired-single ()
+  (use-package dired-single :defer t)
+  (use-package dired
+    :bind (:map dired-mode-map
+                ([return] . dired-single-buffer)
+                ("^" . dmaz/dired-single-up))
+    :config
+    (advice-add 'dired-mouse-find-file-other-window :override #'dired-single-buffer-mouse)
+
+    (dmaz/special-beginning-of-buffer dired
+                                      (while (not (ignore-errors (dired-get-filename)))
+                                        (dired-next-line 1)))
+    (dmaz/special-end-of-buffer dired
+                                (dired-previous-line 1))
+    )
+  )
