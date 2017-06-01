@@ -249,4 +249,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
   ;; org-habit configuration
   (setq org-habit-graph-column 70)
   (advice-add 'org-habit-parse-todo :around #'dmaz-org/habit-parse-todo--respect-org-extend-today-until)
+
+  (spacemacs/set-leader-keys
+    "oc" 'org-clock-goto)
   )
