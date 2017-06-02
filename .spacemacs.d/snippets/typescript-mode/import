@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: import
+# key: import
+# --
+import { ${1:SomeExampleClass} } from './${1:$(string-inflection-kebab-case-function yas-text)}';

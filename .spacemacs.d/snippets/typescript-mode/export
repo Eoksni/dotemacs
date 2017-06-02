@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: export 
+# key: export
+# --
+export class ${1:`(string-inflection-camelcase-function (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))`} {
+       $2
+}
