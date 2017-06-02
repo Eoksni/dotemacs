@@ -59,7 +59,7 @@ Took from https://github.com/lolownia/org-pomodoro/issues/41#issuecomment-113898
   "Parses `f' as .vscode/settings.json to get formatting options suitable for `tide-format-options',
   (setq tide-format-options (dmaz-parse-vscode-formatting \".vscode/settings.json\"))"
 
-  (let* ((regexp "^[^/]*\"javascript\\.format\\.\\(.*\\)\": \\([a-z]*\\)")
+  (let* ((regexp "^[^/]*\"\\(?:javascript\\|typescript\\)\\.format\\.\\(.*\\)\": \\([a-z]*\\)")
          (file-contents (with-temp-buffer
                           (insert-file-contents f)
                           (buffer-substring-no-properties
@@ -182,3 +182,20 @@ toggle between real end and logical end of the buffer."
                  (lambda ()
                    (define-key ,mode-map
                      [remap end-of-buffer] ',fname))))))
+
+(defun dmaz/tag-word-or-region (text-begin text-end)
+  "Surround current word or region with given text."
+  (interactive "sStart tag: \nsEnd tag: ")
+  (let (pos1 pos2 bds)
+    (if (and transient-mark-mode mark-active)
+        (progn
+          (goto-char (region-end))
+          (insert text-end)
+          (goto-char (region-beginning))
+          (insert text-begin))
+      (progn
+        (setq bds (bounds-of-thing-at-point 'symbol))
+        (goto-char (cdr bds))
+        (insert text-end)
+        (goto-char (car bds))
+        (insert text-begin)))))

@@ -251,5 +251,5 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
   (advice-add 'org-habit-parse-todo :around #'dmaz-org/habit-parse-todo--respect-org-extend-today-until)
 
   (spacemacs/set-leader-keys
-    "oc" 'org-clock-goto)
+    "jc" 'org-clock-goto)
   )

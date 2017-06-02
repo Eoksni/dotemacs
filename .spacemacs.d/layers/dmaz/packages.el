@@ -7,6 +7,7 @@
     vue-mode
     dired
     dired-single
+    evil
     ))
 
 (defun dmaz/post-init-ranger ()
@@ -62,3 +63,7 @@
                                 (dired-previous-line 1))
     )
   )
+
+(defun dmaz/post-init-evil ()
+  (spacemacs/set-leader-keys
+    "os" #'dmaz/tag-word-or-region))
