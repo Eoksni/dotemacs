@@ -10,6 +10,7 @@
     dired-single
     evil
     string-inflection
+    evil-goggles
     ))
 
 (defun dmaz/post-init-ranger ()
@@ -88,3 +89,8 @@
   (use-package string-inflection
     :commands (string-inflection-kebab-case-function string-inflection-camelcase-function)
     :defer t))
+
+(defun dmaz/init-evil-goggles ()
+  (use-package evil-goggles
+    :config
+    (evil-goggles-mode)))
