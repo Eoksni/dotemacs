@@ -6,7 +6,6 @@
     tide
     git-commit-insert-issue
     vue-mode
-    dired
     dired-single
     evil
     string-inflection
