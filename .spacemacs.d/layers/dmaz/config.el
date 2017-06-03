@@ -3,7 +3,7 @@
 
 (defun dmaz/config-eoksni-zen-win8 ()
   (setq dmaz/eoksni-dir "C:\\eoksni-dir")
-  (setq dmaz/dropbox-dir "C:\\Users\Dmitriy\Dropbox"))
+  (setq dmaz/dropbox-dir "C:\\Users\\Dmitriy\\Dropbox"))
 
 (setq-default flyspell-generic-check-word-predicate
               #'flyspell-generic-progmode-verify)

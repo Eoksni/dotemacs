@@ -347,7 +347,7 @@ you should place your code here."
   (funcall (intern (concat "dmaz-" (downcase (system-name)) "/user-config"))))
 
 (defun dmaz-eoksni-zen-win8/user-config ()
-  (setq find-program "C:\\\"Program Files (x86)\"\\GnuWin32\\bin\\find.exe"))
+  (setq find-program "C:\\GnuWin\\bin\\find.exe"))
 
 (defun dmaz-eoksni-win8/user-config ()
   (setq find-program "C:\\\"Program Files (x86)\"\\GnuWin32\\bin\\find.exe"))
