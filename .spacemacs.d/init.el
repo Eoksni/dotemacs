@@ -343,6 +343,7 @@ you should place your code here."
   (setq uniquify-buffer-name-style 'forward)
   (setq spacemacs-useless-buffers-regexp '("NOTHING IS USELESS"))
   (setq projectile-generic-command (concat find-program " . -type f -print0"))
+  (setq counsel-rg-base-command "rg -i --hidden --no-heading --line-number --max-columns 150 %s .")
   (setq magit-repository-directories (list (dmaz/joindirs dmaz/eoksni-dir "work/jslearning")))
   (funcall (intern (concat "dmaz-" (downcase (system-name)) "/user-config"))))
 
