@@ -60,7 +60,9 @@
 (defun dmaz/init-git-commit-insert-issue ()
   (use-package git-commit-insert-issue
     :defer t)
-  (add-hook 'git-commit-mode-hook 'git-commit-insert-issue-mode))
+  (add-hook 'git-commit-mode-hook 'git-commit-insert-issue-mode)
+  (advice-add 'insert-issue--get-remote-url :around #'dmaz/insert-issue--get-remote-url)
+  (advice-add 'git-commit-insert-issue-github-issues-format :around #'dmaz/git-commit-insert-issue-github-issues-format))
 
 
 (defun dmaz/init-dired-single ()

@@ -199,3 +199,17 @@ toggle between real end and logical end of the buffer."
         (insert text-end)
         (goto-char (car bds))
         (insert text-begin)))))
+
+(defun dmaz/ask-for-project (project-name)
+  (interactive "sGithub project name: ")
+  (setq dmaz/git-commit-insert-issue-project project-name)
+  dmaz/git-commit-insert-issue-project)
+
+(defun dmaz/insert-issue--get-remote-url (orig-fun &rest args)
+  (or (ignore-errors (apply orig-fun args))
+      (concat "https://github.com/" dmaz/git-commit-insert-issue-default-user "/" (or dmaz/git-commit-insert-issue-project (call-interactively #'dmaz/ask-for-project)) ".git")))
+
+(defun dmaz/git-commit-insert-issue-github-issues-format (orig-fun &rest username project-name)
+  (or (ignore-errors (apply orig-fun username project-name))
+      (funcall orig-fun username (or dmaz/git-commit-insert-issue-project (call-interactively #'dmaz/ask-for-project)))))
+

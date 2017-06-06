@@ -13,6 +13,8 @@
 (setq projectile-create-missing-test-files t)
 (add-to-list 'process-coding-system-alist '("growlnotify" utf-8 . cp1251))
 
+(defvar-local dmaz/git-commit-insert-issue-project nil)
+(defvar dmaz/git-commit-insert-issue-default-user "emotz")
 (defvar dmaz/growlnotify-command "C:\\Program Files (x86)\\Growl for Windows\\growlnotify.exe")
 (defvar dmaz/eoksni-dir "E:\\eoksni-dir")
 (defvar dmaz/dropbox-dir "H:\\Documents\\Dropbox")
