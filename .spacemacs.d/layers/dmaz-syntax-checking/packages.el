@@ -13,6 +13,7 @@
 
 (defun dmaz-syntax-checking/post-init-flycheck ()
   (add-hook 'flycheck-mode-hook #'add-node-modules-path)
+  (setq-default flycheck-disabled-checkers '(typescript-tide))
   (flycheck-add-mode 'javascript-eslint 'typescript-mode))
 
 (defun dmaz-syntax-checking/post-init-markdown-mode ()
