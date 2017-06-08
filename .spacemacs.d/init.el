@@ -340,6 +340,9 @@ you should place your code here."
   (spacemacs/toggle-highlight-current-line-globally-off)
   (use-package js
     :mode ("\\.json\\'" . js-mode))
+  (add-hook 'js-mode-hook #'(lambda ()
+                            (when (equal (file-name-nondirectory (buffer-file-name)) "package.json")
+                              (setq-local js-indent-level 2))))
   (setq uniquify-buffer-name-style 'forward)
   (setq spacemacs-useless-buffers-regexp '("NOTHING IS USELESS"))
   (setq projectile-generic-command (concat find-program " . -type f -print0"))
