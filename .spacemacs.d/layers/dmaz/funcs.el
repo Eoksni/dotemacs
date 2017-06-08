@@ -47,10 +47,10 @@ Took from https://github.com/lolownia/org-pomodoro/issues/41#issuecomment-113898
                    (format "(play-sound-file \"%s\")" file))))
 
 (defun dmaz/apply-formatting-options ()
-  (let* ((settings-file (dmaz/locate-file-uptree ".vscode/settings.json"))
-         (local-format-options (dmaz/parse-vscode-formatting settings-file)))
+  (let* ((settings-file (ignore-errors (dmaz/joindirs (dmaz/locate-file-uptree ".vscode") "settings.json")))
+         (local-format-options (and settings-file (dmaz/parse-vscode-formatting settings-file))))
     (make-local-variable 'tide-format-options)
-    (setq tide-format-options (dmaz/plist-merge tide-format-options local-format-options))))
+    (when local-format-options (setq tide-format-options (dmaz/plist-merge tide-format-options local-format-options)))))
 
 (defun dmaz/locate-file-uptree (f)
   (dmaz/joindirs (locate-dominating-file "." f) f))
