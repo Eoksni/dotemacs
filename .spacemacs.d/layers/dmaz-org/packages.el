@@ -42,6 +42,9 @@
   (setq org-modules '(org-drill org-habit))
   (setq org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM_T")
   (defvar-local dmaz-org/apply-auto-exclude--applied nil)
+  (setq org-clocktable-defaults '(:maxlevel 5 :lang "en" :scope file :block nil :wstart 1 :mstart 1 :tstart nil :tend nil :step nil :stepskip0 nil :fileskip0 nil :tags nil :emphasize nil :link nil :narrow 40! :indent t :formula nil :timestamp nil :level nil :tcolumns nil :formatter nil))
+  (setq org-clock-clocktable-default-properties '(:maxlevel 5 :scope file))
+  (setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 5))
   (advice-add 'org-clock-get-clocktable :around #'dmaz-org/clock-get-clocktable--respect-org-extend-today-until)
   (setq
    org-M-RET-may-split-line (quote ((default)))
