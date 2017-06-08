@@ -137,10 +137,6 @@ reasoning."
     (define-key map KEYBINDING FUNCTION)
     (use-local-map map)))
 
-(defun dmaz-open-cmd-here ()
-  (interactive)
-  (let ((process-connection-type nil)) (start-process "" nil "cmd" "/C" "start")))
-
 (defun dmaz-open-explorer-here ()
   (interactive)
   (let ((process-connection-type nil)) (start-process "" nil "explorer" (dmaz-get-dir-name))))
@@ -531,14 +527,6 @@ toggle between real end and logical end of the buffer."
   (when org-clock-heading
     (message org-clock-heading)
     (kill-new org-clock-heading)))
-
-(defun dmaz-insert-and-close-clock ()
-  "Inserts the clock header in the current buffer and closes current clock todo."
-  (interactive)
-  (when org-clock-heading
-    (insert org-clock-heading)
-    (let ((org-clock-out-switch-to-state "DONE"))
-      (org-clock-out))))
 
 (defun dmaz-parse-vscode-formatting (f)
   "Parses `f' as .vscode/settings.json to get formatting options suitable for `tide-format-options',

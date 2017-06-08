@@ -213,3 +213,14 @@ toggle between real end and logical end of the buffer."
   (or (ignore-errors (apply orig-fun username project-name))
       (funcall orig-fun username (or dmaz/git-commit-insert-issue-project (call-interactively #'dmaz/ask-for-project)))))
 
+(defun dmaz/insert-and-close-clock ()
+  "Inserts the clock header in the current buffer and closes current clock todo."
+  (interactive)
+  (when org-clock-heading
+    (insert org-clock-heading)
+    (let ((org-clock-out-switch-to-state "DONE"))
+      (org-clock-out))))
+
+(defun dmaz/open-cmd-here ()
+  (interactive)
+  (let ((process-connection-type nil)) (start-process "" nil "cmd" "/C" "start")))
