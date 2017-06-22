@@ -14,8 +14,9 @@ simple timestamp string."
 
   (defun dmaz-org/setup-dropbox-dir ()
     (setq org-directory (dmaz/joindirs (file-name-as-directory dmaz/dropbox-dir) "notes"))
+    (add-to-list 'org-agenda-files org-directory)
     (add-to-list 'org-agenda-files (dmaz/joindirs org-directory "life"))
-    (add-to-list 'org-agenda-files (dmaz/joindirs org-directory "main.org"))
+    ;; (add-to-list 'org-agenda-files (dmaz/joindirs org-directory "main.org"))
     (setq org-default-notes-file (dmaz/joindirs org-directory "main.org")))
 
   (defun dmaz-org/clock-in-to-started (kw)
@@ -174,6 +175,7 @@ should be continued."
     ;; t if want to exclude
     (and (cond
           ((string= tag "drill") t)
+          ((string= tag "buy") t)
           ((string= tag "loud")
            (let ((hour (nth 2 (decode-time))))
              (or (< hour 9) (> hour 22))))

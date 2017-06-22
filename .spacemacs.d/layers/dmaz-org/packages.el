@@ -120,6 +120,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
    org-clock-report-include-clocking-task t
    org-drill-add-random-noise-to-intervals-p t
    org-drill-learn-fraction 0.4
+   org-drill-scope 'agenda
    org-enforce-todo-dependencies t
    org-extend-today-until 6
    org-log-into-drawer t

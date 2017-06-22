@@ -10,7 +10,7 @@
     evil
     string-inflection
     evil-goggles
-    indium
+    ;; indium
     ))
 
 (defun dmaz/post-init-ranger ()
@@ -97,9 +97,10 @@
     :config
     (evil-goggles-mode)))
 
-(defun dmaz/init-indium ()
-  (use-package indium
-    :commands (indium-run-node)
-    :defer t
-    )
-  )
+;; (defun dmaz/init-indium ()
+;;   (use-package indium
+;;     :commands (indium-run-node)
+;;     :defer t
+;;     )
+;;   (setq indium-exec-path-setup t) ;; some issues with manipulation exec-path due to spaces in the Program Files
+;;   )
