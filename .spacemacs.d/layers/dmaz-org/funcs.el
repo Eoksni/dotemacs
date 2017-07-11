@@ -5,10 +5,10 @@
      ("Зарядка утром" (dmaz/start-exercise))
      ("Зарядка днем" (dmaz/start-exercise))
      ("Зарядка вечером" (dmaz/start-exercise))
+     ("Потренировать голос" (dmaz/start-exercise))
      )
     )
 
-  
   (defun dmaz-org/notify-convert-scheduled (orig)
     "Convert original scheduled from `org-element-parse-buffer' to
 simple timestamp string."
