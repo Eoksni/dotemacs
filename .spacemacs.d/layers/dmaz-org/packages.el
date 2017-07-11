@@ -38,7 +38,7 @@
     (dmaz-org/setup-eoksni-dir)
     (dmaz-org/setup-dropbox-dir)
     )
-
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
   (setq org-modules '(org-drill org-habit))
   (setq org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM_T")
   (defvar-local dmaz-org/apply-auto-exclude--applied nil)
@@ -145,6 +145,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
     ((sequence "TODO(t)" "WAITING(w)" "STARTED(s)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
      (sequence "INBOX")))
    )
+  (add-hook 'org-clock-in-hook #'dmaz-org/clock-in-hook)
   ;; org-agenda configuration
   (add-hook 'org-agenda-finalize-hook #'dmaz-org/finalize-agenda-hook)
   (use-package org-agenda

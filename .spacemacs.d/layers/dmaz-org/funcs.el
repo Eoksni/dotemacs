@@ -1,4 +1,14 @@
 (when (configuration-layer/package-usedp 'org)
+  (defun dmaz-org/clock-in-hook ()
+    (pcase org-clock-current-task
+     ("Drill it, Drill it!" (org-drill))
+     ("Зарядка утром" (dmaz/start-exercise))
+     ("Зарядка днем" (dmaz/start-exercise))
+     ("Зарядка вечером" (dmaz/start-exercise))
+     )
+    )
+
+  
   (defun dmaz-org/notify-convert-scheduled (orig)
     "Convert original scheduled from `org-element-parse-buffer' to
 simple timestamp string."
