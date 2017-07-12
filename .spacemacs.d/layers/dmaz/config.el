@@ -29,7 +29,7 @@
   (ispell-hunspell-add-multi-dic "een_US,ru_RU"))
 
 ;; karma webpack compilation errors parsing
-(pushnew '(karma-webpack "^[[:blank:]]*at .*(webpack:///\\(.*\\):\\([[:digit:]]+\\):[[:digit:]]+ <- [./_[:alnum:]]+:[[:digit:]]+:[[:digit:]]+)$" 1 2) compilation-error-regexp-alist-alist)
+(pushnew '(karma-webpack "^[[:blank:]]*at .*(*webpack:///\\(.*\\):\\([[:digit:]]+\\):[[:digit:]]+ <- [./_[:alnum:]]+:[[:digit:]]+.*$" 1 2) compilation-error-regexp-alist-alist)
 (pushnew 'karma-webpack compilation-error-regexp-alist)
-
 (funcall (intern (concat "dmaz/config-" (downcase (system-name)))))
+
