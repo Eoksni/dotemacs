@@ -257,4 +257,6 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
 
   (spacemacs/set-leader-keys
     "jc" 'org-clock-goto)
+  (spacemacs/set-leader-keys
+    "op" 'org-pomodoro)
   )
