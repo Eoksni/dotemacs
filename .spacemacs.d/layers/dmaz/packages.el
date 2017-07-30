@@ -11,6 +11,7 @@
     string-inflection
     evil-goggles
     ;; indium
+    (compile :location built-in)
     ))
 
 (defun dmaz/post-init-ranger ()
@@ -18,6 +19,15 @@
   ;; Fix the masks for the elisp internal implementation of ls
   ;; (setq ranger-dired-display-mask '(t t t t t t t)
   ;;       ranger-dired-hide-mask '(nil nil nil nil nil nil t))
+  )
+
+(defun dmaz/init-compile ()
+  (use-package compile
+    :config
+    ;; karma webpack compilation errors parsing
+    (pushnew '(karma-webpack "^.*webpack:///\\(.*\\):\\([[:digit:]]+\\):[[:digit:]]+ <- [./_[:alnum:]]+:[[:digit:]]+.*$" 1 2) compilation-error-regexp-alist-alist)
+    (pushnew 'karma-webpack compilation-error-regexp-alist)
+    )
   )
 
 (defun dmaz/init-vue-mode ()
@@ -76,10 +86,10 @@
     (advice-add 'dired-mouse-find-file-other-window :override #'dired-single-buffer-mouse)
 
     (dmaz/special-beginning-of-buffer dired
-                                      (while (not (ignore-errors (dired-get-filename)))
-                                        (dired-next-line 1)))
+      (while (not (ignore-errors (dired-get-filename)))
+        (dired-next-line 1)))
     (dmaz/special-end-of-buffer dired
-                                (dired-previous-line 1))
+      (dired-previous-line 1))
     )
   )
 

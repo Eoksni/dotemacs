@@ -28,8 +28,7 @@
   (ispell-set-spellchecker-params)
   (ispell-hunspell-add-multi-dic "een_US,ru_RU"))
 
-;; karma webpack compilation errors parsing
-(pushnew '(karma-webpack "^.*webpack:///\\(.*\\):\\([[:digit:]]+\\):[[:digit:]]+ <- [./_[:alnum:]]+:[[:digit:]]+.*$" 1 2) compilation-error-regexp-alist-alist)
-(pushnew 'karma-webpack compilation-error-regexp-alist)
+(setq create-lockfiles nil)
+
 (funcall (intern (concat "dmaz/config-" (downcase (system-name)))))
 
