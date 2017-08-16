@@ -349,13 +349,7 @@ you should place your code here."
   (setq projectile-generic-command (concat find-program " . -type f -print0"))
   (setq counsel-rg-base-command "rg -i --hidden --no-heading --line-number --max-columns 150 %s .")
   (setq magit-repository-directories (list (dmaz/joindirs dmaz/eoksni-dir "work/jslearning")))
-  (funcall (intern (concat "dmaz-" (downcase (system-name)) "/user-config"))))
-
-(defun dmaz-eoksni-zen-win8/user-config ()
-  (setq find-program "C:\\GnuWin\\bin\\find.exe"))
-
-(defun dmaz-eoksni-win8/user-config ()
-  (setq find-program "C:\\\"Program Files (x86)\"\\GnuWin32\\bin\\find.exe"))
+  (setq find-program dmaz/find-program))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
