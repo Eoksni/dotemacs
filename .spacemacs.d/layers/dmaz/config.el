@@ -13,6 +13,11 @@
   (setq dmaz/dropbox-dir "C:\\Users\\Dmitriy\\Dropbox")
   (setq dmaz/find-program "C:\\GnuWin\\bin\\find.exe"))
 
+(defun dmaz/config-eoksni-fedora ()
+  (setq dmaz/eoksni-dir "/home/dmazurok/eoksni-dir")
+  (setq dmaz/dropbox-dir "/home/dmazurok/Dropbox")
+  (setq dmaz/find-program "/usr/bin/find"))
+
 (setq-default flyspell-generic-check-word-predicate
               #'flyspell-generic-progmode-verify)
 (advice-add 'ispell-comments-and-strings :override #'dmaz/ispell-comments-and-strings)
