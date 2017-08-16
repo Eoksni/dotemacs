@@ -58,11 +58,24 @@ If point was already at the beginning of line, move to begin of indentation inst
            (expand-file-name (car dirs) root)
            (cdr dirs))))
 
+(defun dmaz/show-notification-eoksni-fedora (notification title)
+  (start-process "emacs-timer-notification-sound" nil "mpg123" (dmaz/joindirs user-emacs-directory "sounds/notification.mp3"))
+  (start-process "emacs-timer-notification" nil
+                 "notify-send" title notification)
+  )
+
+(defun dmaz/show-notification-eoksni-win8 (notification title)
+  (start-process "emacs-timer-notification" nil
+                 dmaz/growlnotify-command (format "/t:%s" title) (concat "/i:" (dmaz/joindirs user-emacs-directory "emacs.png")) notification))
+
+(defun dmaz/show-notification-eoksni-zen-win8 (notification title)
+  (start-process "emacs-timer-notification" nil
+                 dmaz/growlnotify-command (format "/t:%s" title) (concat "/i:" (dmaz/joindirs user-emacs-directory "emacs.png")) notification))
+
 (defun dmaz/show-notification (notification &optional title)
   (interactive "sNotification text: ")
   (let ((title (or title "Emacs")))
-    (start-process "emacs-timer-notification" nil
-                   dmaz/growlnotify-command (format "/t:%s" title) (concat "/i:" (dmaz/joindirs user-emacs-directory "emacs.png")) notification)))
+    (funcall (intern (concat "dmaz/show-notification-" (downcase (system-name)))) notification title)))
 
 (defun dmaz/eq-time-and-time (time1 time2)
   (and (not (time-less-p time1 time2))
