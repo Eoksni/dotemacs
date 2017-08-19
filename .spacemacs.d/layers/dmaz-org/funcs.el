@@ -23,11 +23,19 @@ simple timestamp string."
     (add-to-list 'org-agenda-files dmaz-org/work-agenda-file))
 
   (defun dmaz-org/setup-dropbox-dir ()
-    (setq org-directory (dmaz/joindirs (file-name-as-directory dmaz/dropbox-dir) "notes"))
+    ;; (setq org-directory (dmaz/joindirs (file-name-as-directory dmaz/dropbox-dir) "notes"))
+    ;; (add-to-list 'org-agenda-files org-directory)
+    ;; (add-to-list 'org-agenda-files (dmaz/joindirs org-directory "work"))
+    ;; (add-to-list 'org-agenda-files (dmaz/joindirs org-directory "life"))
+    ;; ;; (add-to-list 'org-agenda-files (dmaz/joindirs org-directory "main.org"))
+    ;; (setq org-default-notes-file (dmaz/joindirs org-directory "main.org"))
+    )
+
+  (defun dmaz-org/setup-syncthing-dir ()
+    (setq org-directory (dmaz/joindirs (file-name-as-directory dmaz/syncthing-dir) "notes"))
     (add-to-list 'org-agenda-files org-directory)
     (add-to-list 'org-agenda-files (dmaz/joindirs org-directory "work"))
     (add-to-list 'org-agenda-files (dmaz/joindirs org-directory "life"))
-    ;; (add-to-list 'org-agenda-files (dmaz/joindirs org-directory "main.org"))
     (setq org-default-notes-file (dmaz/joindirs org-directory "main.org")))
 
   (defun dmaz-org/clock-in-to-started (kw)

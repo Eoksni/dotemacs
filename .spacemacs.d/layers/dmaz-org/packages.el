@@ -28,7 +28,7 @@
     (setq org-pomodoro-short-break-length 17)
     (setq org-pomodoro-long-break-length 30)
     (setq org-pomodoro-length 52)
-    (setq org-pomodoro-audio-player "E:\\eoksni-dir\\portable\\mplayer-svn-37931\\mplayer.exe"))
+    (setq org-pomodoro-audio-player dmaz/mplayer-path))
 
   ;; org configuration
   (use-package org
@@ -37,6 +37,7 @@
     (spacemacs/toggle-mode-line-org-clock-on)
     (dmaz-org/setup-eoksni-dir)
     (dmaz-org/setup-dropbox-dir)
+    (dmaz-org/setup-syncthing-dir)
     )
   (setq org-refile-allow-creating-parent-nodes 'confirm)
   (setq org-modules '(org-drill org-habit))

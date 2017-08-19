@@ -3,7 +3,9 @@
 (defvar dmaz/growlnotify-command "C:\\Program Files (x86)\\Growl for Windows\\growlnotify.exe")
 (defvar dmaz/eoksni-dir "E:\\eoksni-dir")
 (defvar dmaz/dropbox-dir "H:\\Documents\\Dropbox")
+(defvar dmaz/syncthing-dir "C:\\Users\\Dmitriy\\Sync")
 (defvar dmaz/find-program "C:\\\"Program Files (x86)\"\\GnuWin32\\bin\\find.exe")
+(defvar dmaz/mplayer-path "E:\\eoksni-dir\\portable\\mplayer-svn-37931\\mplayer.exe")
 
 (defun dmaz/config-eoksni-win8 ()
   )
@@ -16,7 +18,9 @@
 (defun dmaz/config-eoksni-fedora ()
   (setq dmaz/eoksni-dir "/home/dmazurok/eoksni-dir")
   (setq dmaz/dropbox-dir "/home/dmazurok/Dropbox")
-  (setq dmaz/find-program "/usr/bin/find"))
+  (setq dmaz/syncthing-dir "/home/dmazurok/Sync")
+  (setq dmaz/find-program "/usr/bin/find")
+  (setq dmaz/mplayer-path "mplayer"))
 
 (setq-default flyspell-generic-check-word-predicate
               #'flyspell-generic-progmode-verify)
