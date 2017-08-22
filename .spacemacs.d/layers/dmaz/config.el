@@ -5,7 +5,7 @@
 (defvar dmaz/dropbox-dir "H:\\Documents\\Dropbox")
 (defvar dmaz/syncthing-dir "C:\\Users\\Dmitriy\\Sync")
 (defvar dmaz/find-program "C:\\\"Program Files (x86)\"\\GnuWin32\\bin\\find.exe")
-(defvar dmaz/mplayer-path "E:\\eoksni-dir\\portable\\mplayer-svn-37931\\mplayer.exe")
+(defvar dmaz/mplayer-path (dmaz/joindirs dmaz/eoksni-dir "portable\\mplayer-svn-37931\\mplayer.exe"))
 
 (defun dmaz/config-eoksni-win8 ()
   )
