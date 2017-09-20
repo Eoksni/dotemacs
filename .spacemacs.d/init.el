@@ -337,6 +337,7 @@ you should place your code here."
    ls-lisp-use-string-collate nil
    ls-lisp-verbosity (quote (links))
    )
+  (setq-default magit-diff-refine-hunk 'all)
   (setq js2-strict-trailing-comma-warning nil)
   (spacemacs/toggle-highlight-current-line-globally-off)
   (use-package js
