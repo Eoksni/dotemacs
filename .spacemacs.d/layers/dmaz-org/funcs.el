@@ -20,7 +20,8 @@ simple timestamp string."
 
   (defun dmaz-org/setup-eoksni-dir ()
     (add-to-list 'org-agenda-files (dmaz/joindirs dmaz/eoksni-dir "notes"))
-    (add-to-list 'org-agenda-files dmaz-org/work-agenda-file))
+    ;; (add-to-list 'org-agenda-files dmaz-org/work-agenda-file)
+    )
 
   (defun dmaz-org/setup-dropbox-dir ()
     ;; (setq org-directory (dmaz/joindirs (file-name-as-directory dmaz/dropbox-dir) "notes"))
