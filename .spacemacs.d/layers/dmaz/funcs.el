@@ -272,3 +272,11 @@ toggle between real end and logical end of the buffer."
 (defun dmaz/open-cmd-here ()
   (interactive)
   (let ((process-connection-type nil)) (start-process "" nil "cmd" "/C" "start")))
+
+(defun dmaz-format-hours (hours)
+  (format "%d:%02d" (truncate hours) (* 60 (- hours (truncate hours))))
+  )
+
+(defun dmaz-format-hours-round (hours)
+  (format "%d" (round hours))
+  )
