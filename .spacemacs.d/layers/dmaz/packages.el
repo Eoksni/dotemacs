@@ -27,6 +27,9 @@
     ;; karma webpack compilation errors parsing
     (pushnew '(karma-webpack "^.*webpack:///\\(.*\\):\\([[:digit:]]+\\):[[:digit:]]+ <- [./_[:alnum:]]+:[[:digit:]]+.*$" 1 2) compilation-error-regexp-alist-alist)
     (pushnew 'karma-webpack compilation-error-regexp-alist)
+    ;; mocha compilation errors parsing
+    (pushnew '(mocha "^.*at .*(\\(.*\\):\\([[:digit:]]+\\):[[:digit:]]+).*$" 1 2) compilation-error-regexp-alist-alist)
+    (pushnew 'mocha compilation-error-regexp-alist)
     )
   )
 
