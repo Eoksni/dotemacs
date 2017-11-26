@@ -6,6 +6,7 @@
 (defvar dmaz/syncthing-dir "C:\\Users\\Dmitriy\\Sync")
 (defvar dmaz/find-program "C:\\\"Program Files (x86)\"\\GnuWin32\\bin\\find.exe")
 (defvar dmaz/mplayer-path (dmaz/joindirs dmaz/eoksni-dir "portable\\mplayer-svn-37931\\mplayer.exe"))
+(defvar dmaz/exercise-file-path (dmaz/joindirs dmaz/dropbox-dir "start-exercise.ahk"))
 
 (defun dmaz/config-eoksni-win8 ()
   )
@@ -20,7 +21,9 @@
   (setq dmaz/dropbox-dir "/home/dmazurok/Dropbox")
   (setq dmaz/syncthing-dir "/home/dmazurok/Sync")
   (setq dmaz/find-program "/usr/bin/find")
-  (setq dmaz/mplayer-path "mplayer"))
+  (setq dmaz/mplayer-path "mplayer")
+  (setq dmaz/exercise-file-path "~/bin/exercise.sh")
+  )
 
 (setq-default flyspell-generic-check-word-predicate
               #'flyspell-generic-progmode-verify)

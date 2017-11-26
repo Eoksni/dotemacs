@@ -82,6 +82,10 @@
       (file+headline org-default-notes-file "today")
       "* TODO %?
 SCHEDULED: %t")
+     ("b" "buy" entry
+      (file+headline org-default-notes-file "buy")
+      "* TODO %?
+")
      ("h" "habit" entry
       (file+headline
        (dmaz/joindirs org-directory "life" "habits.org")
@@ -261,4 +265,6 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
     "jc" 'org-clock-goto)
   (spacemacs/set-leader-keys
     "op" 'org-pomodoro)
+  (spacemacs/set-leader-keys
+    "ob" 'dmaz-org/buy-list)
   )

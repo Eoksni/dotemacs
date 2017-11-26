@@ -6,6 +6,8 @@
      ("Зарядка днем" (dmaz/start-exercise))
      ("Зарядка вечером" (dmaz/start-exercise))
      ("Потренировать голос" (dmaz/start-exercise))
+     ("решить катку перед работой" (dmaz/open-in-external-app "http://codewars.com"))
+     ("datacamp daily practice" (dmaz/open-in-external-app "https://www.codewars.com/kata/search/my-languages?q=&r%5B%5D=-6&r%5B%5D=-5&xids=played&beta=false&order_by=satisfaction_percent+desc%2Ctotal_completed+desc"))
      )
     )
 
@@ -195,10 +197,9 @@ should be continued."
     ;; t if want to exclude
     (and (cond
           ((string= tag "drill") t)
-          ((string= tag "buy") t)
           ((string= tag "loud")
            (let ((hour (nth 2 (decode-time))))
-             (or (< hour 9) (> hour 22))))
+             (or (< hour 9) (>= hour 22))))
           ((string= tag "daytime")
            (let ((hour (nth 2 (decode-time))))
              (or (< hour 9) (> hour 19)))))
@@ -225,6 +226,10 @@ should be continued."
       (if (= 0 sec min hour)
           (float-time (encode-time sec min (+ org-extend-today-until hour) (nth 3 decoded) (nth 4 decoded) (nth 5 decoded)))
         time)))
+  (defun dmaz-org/buy-list ()
+    (interactive)
+    (org-tags-view t "buy")
+    )
 
   (defun dmaz-org/clock-get-clocktable--respect-org-extend-today-until (orig-fun &rest args)
     (advice-add 'org-matcher-time :filter-return #'dmaz-org/matcher-time--respect-org-extend-today-until)

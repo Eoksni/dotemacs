@@ -21,10 +21,9 @@ Works in Microsoft Windows, Mac OS X, Linux."
         (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath))) myFileList))))))
 
 (defun dmaz/start-exercise ()
-  (let (
-        (exercise-file (dmaz/joindirs dmaz/dropbox-dir "start-exercise.ahk"))
-        )
-    (dmaz/open-in-external-app exercise-file)
+  (if (s-suffix? ".sh" dmaz/exercise-file-path)
+      (start-process "" nil "gnome-terminal" "-e" (format "bash -c '%s'" dmaz/exercise-file-path))
+    (dmaz/open-in-external-app dmaz/exercise-file-path)
     )
   )
 (defun dmaz/move-beginning-of-line--smart (orig-fun &rest args)
