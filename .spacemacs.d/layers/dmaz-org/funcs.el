@@ -56,22 +56,24 @@ Skips capture tasks."
                                         ; time specific items are already sorted first by org-agenda-sorting-strategy
 
                                         ; late deadlines
-       ((dmaz-org/agenda-sort-test-num 'dmaz-org/is-late-deadline '< a b))
+       ;; ((dmaz-org/agenda-sort-test-num 'dmaz-org/is-late-deadline '< a b))
 
-                                        ; deadlines for today
-       ((dmaz-org/agenda-sort-test 'dmaz-org/is-due-deadline a b))
+       ;;                                  ; deadlines for today
+       ;; ((dmaz-org/agenda-sort-test 'dmaz-org/is-due-deadline a b))
 
-                                        ; pending deadlines
-       ((dmaz-org/agenda-sort-test-num 'dmaz-org/is-pending-deadline '< a b))
+       ;;                                  ; pending deadlines
+       ;; ((dmaz-org/agenda-sort-test-num 'dmaz-org/is-pending-deadline '< a b))
 
-                                        ; late scheduled items
-       ((dmaz-org/agenda-sort-test-num 'dmaz-org/is-scheduled-late '> a b))
+       ;;                                  ; late scheduled items
+       ;; ((dmaz-org/agenda-sort-test-num 'dmaz-org/is-scheduled-late '> a b))
 
-                                        ; scheduled items for today
-       ((dmaz-org/agenda-sort-test 'dmaz-org/is-scheduled-today a b))
+       ;;                                  ; scheduled items for today
+       ;; ((dmaz-org/agenda-sort-test 'dmaz-org/is-scheduled-today a b))
 
-                                        ; non-deadline and non-scheduled items
-       ((dmaz-org/agenda-sort-test 'dmaz-org/is-not-scheduled-or-deadline a b))
+       ((dmaz-org/agenda-sort-test-actual-num 'org-get-priority 'dmaz-org/compare-numbers a b))
+
+       ;;                                  ; non-deadline and non-scheduled items
+       ;; ((dmaz-org/agenda-sort-test 'dmaz-org/is-not-scheduled-or-deadline a b))
 
                                         ; finally default to unsorted
        (t (setq result nil))
@@ -111,6 +113,36 @@ Skips capture tasks."
       ((apply ,fn (list ,b))
        (setq result 1))
       (t nil)))
+
+  (defmacro dmaz-org/agenda-sort-test-actual-num (fn compfn a b)
+    `(progn
+       (setq num-a (apply ,fn (list ,a)))
+       (if num-a
+           (progn
+             (setq num-b (apply ,fn (list ,b)))
+             (if num-b
+                 (setq result (apply ,compfn (list num-a num-b)))
+               (setq result -1)
+               )
+             )
+         (progn
+           (setq num-b (apply ,fn (list ,b)))
+           (if num-b
+               (setq result 1)
+             nil
+             )
+           )
+         )
+       )
+    )
+
+  (defun dmaz-org/compare-numbers (num1 num2)
+    (if (> num1 num2)
+        -1
+      (if (> num2 num1)
+          1
+        nil))
+    )
 
   (defun dmaz-org/is-not-scheduled-or-deadline (date-str)
     (and (not (dmaz-org/is-deadline date-str))

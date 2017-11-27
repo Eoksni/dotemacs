@@ -48,17 +48,22 @@
   (setq org-clock-clocktable-default-properties '(:maxlevel 5 :scope file))
   (setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 5))
   (advice-add 'org-clock-get-clocktable :around #'dmaz-org/clock-get-clocktable--respect-org-extend-today-until)
+  (setq org-default-priority (string-to-char "C"))
+  (setq
+   org-agenda-sorting-strategy
+   (quote
+    (
+     ;; (agenda time-up priority-down effort-up habit-up user-defined-up category-up tag-up)
+     (agenda time-up user-defined-up todo-state-up effort-up habit-up priority-down)
+     (todo priority-down category-up)
+     (tags priority-down category-up)
+     (search category-keep)))
+   )
   (setq
    org-M-RET-may-split-line (quote ((default)))
    org-agenda-auto-exclude-function (quote dmaz-org/auto-exclude-function)
    org-agenda-cmp-user-defined (quote dmaz-org/agenda-sort)
    org-agenda-scheduled-leaders (quote ("" "Sched.%2dx: "))
-   org-agenda-sorting-strategy
-   (quote
-    ((agenda time-up priority-down habit-up user-defined-up effort-up category-up tag-up)
-     (todo priority-down category-up)
-     (tags priority-down category-up)
-     (search category-keep)))
    org-agenda-span (quote day)
    org-agenda-window-setup (quote only-window)
    org-blank-before-new-entry (quote ((heading) (plain-list-item)))
@@ -261,6 +266,8 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
   (setq org-habit-graph-column 70)
   (advice-add 'org-habit-parse-todo :around #'dmaz-org/habit-parse-todo--respect-org-extend-today-until)
 
+  (spacemacs/set-leader-keys
+    "ot" 'org-timer-set-timer)
   (spacemacs/set-leader-keys
     "jc" 'org-clock-goto)
   (spacemacs/set-leader-keys
