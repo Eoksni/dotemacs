@@ -133,7 +133,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
    org-drill-learn-fraction 0.4
    org-drill-scope 'agenda
    org-enforce-todo-dependencies t
-   org-extend-today-until 2
+   org-extend-today-until 5
    org-log-into-drawer t
    org-outline-path-complete-in-steps nil
    org-refile-targets (quote ((org-agenda-files :maxlevel . 5)))
