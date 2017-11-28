@@ -6,8 +6,8 @@
      ("Зарядка днем" (dmaz/start-exercise))
      ("Зарядка вечером" (dmaz/start-exercise))
      ("Потренировать голос" (dmaz/start-exercise))
-     ("решить катку перед работой" (dmaz/open-in-external-app "http://codewars.com"))
-     ("datacamp daily practice" (dmaz/open-in-external-app "https://www.codewars.com/kata/search/my-languages?q=&r%5B%5D=-6&r%5B%5D=-5&xids=played&beta=false&order_by=satisfaction_percent+desc%2Ctotal_completed+desc"))
+     ("решить катку перед работой" (dmaz/open-in-external-app "https://www.codewars.com/kata/search/my-languages?q=&r%5B%5D=-6&r%5B%5D=-5&xids=played&beta=false&order_by=satisfaction_percent+desc%2Ctotal_completed+desc"))
+     ("datacamp daily practice" (dmaz/open-in-external-app "https://www.datacamp.com/home"))
      )
     )
 
