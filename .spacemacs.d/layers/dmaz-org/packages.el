@@ -54,7 +54,7 @@
    (quote
     (
      ;; (agenda time-up priority-down effort-up habit-up user-defined-up category-up tag-up)
-     (agenda time-up user-defined-up todo-state-up effort-up habit-up priority-down)
+     (agenda time-up todo-state-up user-defined-up effort-up habit-up priority-down)
      (todo priority-down category-up)
      (tags priority-down category-up)
      (search category-keep)))
@@ -267,7 +267,7 @@ SCHEDULED: <%<%Y-%m-%d %a> .+1d>
   (advice-add 'org-habit-parse-todo :around #'dmaz-org/habit-parse-todo--respect-org-extend-today-until)
 
   (spacemacs/set-leader-keys
-    "ot" 'org-timer-set-timer)
+    "ot" 'dmaz-org/timer-set-timer)
   (spacemacs/set-leader-keys
     "jc" 'org-clock-goto)
   (spacemacs/set-leader-keys

@@ -318,4 +318,48 @@ should be continued."
           (pr :timestamp deadline)  (pr :uid (md5 (concat heading deadline)))
           (pr :deadline (- (org-time-string-to-seconds deadline)
                            (float-time))))
-        result))))
+        result)))
+
+  (defun dmaz-org/timer-set-timer (&optional opt)
+    "Same as `org-timer-set-timer' but ignores effort."
+    (interactive "P")
+    (with-temp-buffer
+      (org-mode)
+      (when (and org-timer-start-time
+                 (not org-timer-countdown-timer))
+        (user-error "Relative timer is running.  Stop first"))
+      (let* ((default-timer
+               ;; `org-timer-default-timer' used to be a number, don't choke:
+               (if (numberp org-timer-default-timer)
+                   (number-to-string org-timer-default-timer)
+                 org-timer-default-timer))
+             (minutes (or (and (numberp opt) (number-to-string opt))
+                          (and (consp opt) default-timer)
+                          (and (stringp opt) opt)
+                          (read-from-minibuffer
+                           "How much time left? (minutes or h:mm:ss) "
+                           (and (not (string-equal default-timer "0")) default-timer)))))
+        (when (string-match "\\`[0-9]+\\'" minutes)
+          (setq minutes (concat minutes ":00")))
+        (if (not (string-match "[0-9]+" minutes))
+            (org-timer-show-remaining-time)
+          (let ((secs (org-timer-hms-to-secs (org-timer-fix-incomplete minutes))))
+            (if (and org-timer-countdown-timer
+                     (not (or (equal opt '(16))
+                              (y-or-n-p "Replace current timer? "))))
+                (message "No timer set")
+              (when (timerp org-timer-countdown-timer)
+                (cancel-timer org-timer-countdown-timer))
+              (setq org-timer-countdown-timer-title
+                    (org-timer--get-timer-title))
+              (setq org-timer-countdown-timer
+                    (org-timer--run-countdown-timer
+                     secs org-timer-countdown-timer-title))
+              (run-hooks 'org-timer-set-hook)
+              (setq org-timer-start-time
+                    (time-add (current-time) (seconds-to-time secs)))
+              (setq org-timer-pause-time nil)
+              (org-timer-set-mode-line 'on)))))
+      )
+    )
+  )
