@@ -3,7 +3,7 @@
 (defvar dmaz/growlnotify-command "C:\\Program Files (x86)\\Growl for Windows\\growlnotify.exe")
 (defvar dmaz/eoksni-dir "E:\\eoksni-dir")
 (defvar dmaz/dropbox-dir "H:\\Documents\\Dropbox")
-(defvar dmaz/syncthing-dir "C:\\Users\\Dmitriy\\Sync")
+(defvar dmaz/syncthing-dir "F:\\sync")
 (defvar dmaz/find-program "C:\\\"Program Files (x86)\"\\GnuWin32\\bin\\find.exe")
 (defvar dmaz/mplayer-path (dmaz/joindirs dmaz/eoksni-dir "portable\\mplayer-svn-37931\\mplayer.exe"))
 (defvar dmaz/exercise-file-path (dmaz/joindirs dmaz/dropbox-dir "start-exercise.ahk"))
@@ -13,6 +13,7 @@
 
 (defun dmaz/config-eoksni-zen-win8 ()
   (setq dmaz/eoksni-dir "C:\\eoksni-dir")
+  (setq dmaz/syncthing-dir "C:\\Users\\Dmitriy\\Sync")
   (setq dmaz/dropbox-dir "C:\\Users\\Dmitriy\\Dropbox")
   (setq dmaz/find-program "C:\\GnuWin\\bin\\find.exe"))
 
