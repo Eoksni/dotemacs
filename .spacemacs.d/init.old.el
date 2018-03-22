@@ -31,25 +31,35 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     javascript
+     ipython-notebook
+     docker
      yaml
+     csv
+     dmaz-projectile
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t)
+     windows-scripts
+     finance
+     autohotkey
+     restclient
+     html
+     dmaz-syntax-checking
+     dmaz-org
+     typescript
      markdown
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; ivy
+     ivy
      dmaz
      git
-     helm
-     (auto-completion :variables
-                      auto-completion-enable-help-tooltip t)
-     (haskell :variables
-              haskell-completion-backend 'intero
-              haskell-enable-hindent-style "fundamental")
+     themes-megapack
+     ;; auto-completion
      ;; better-defaults
      emacs-lisp
+     shell
      ;; git
      ;; markdown
      ;; org
@@ -57,22 +67,18 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
+     ;; syntax-checking
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(
-                                      ;; (darkplus-theme :location (recipe :fetcher github :repo "dunstontc/darkplus-emacs") :min-version "1")
-                                      )
+   dotspacemacs-additional-packages '(editorconfig)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(
-                                    org-bullets
-                                    )
+   dotspacemacs-excluded-packages '()
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -140,14 +146,17 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(
+                         monokai
+                         ;;zenburn
+                         spacemacs-dark
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Consolas"
-                               :size 14
+                               :size 15
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -201,7 +210,7 @@ values."
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
    ;; (default 'cache)
-   dotspacemacs-auto-save-file-location 'cache
+   dotspacemacs-auto-save-file-location 'original
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
    ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
@@ -259,7 +268,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling nil
+   dotspacemacs-smooth-scrolling t
    ;; Control line numbers activation.
    ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
    ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
@@ -323,27 +332,27 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; dired things
   (setq
    ls-lisp-dirs-first t
    ls-lisp-ignore-case t
    ls-lisp-use-string-collate nil
    ls-lisp-verbosity (quote (links))
    )
-
-  ;; garbage collection tweaks (to make windows more stable)
-  (setq gc-cons-threshold (* 511 1024 1024))
-  (setq gc-cons-percentage 0.5)
-  (run-with-idle-timer 5 t #'garbage-collect)
-
-  ;; generic stuff
+  ;; (editorconfig-mode t)
+  (setq-default magit-diff-refine-hunk 'all)
+  (setq js2-strict-trailing-comma-warning nil)
+  (spacemacs/toggle-highlight-current-line-globally-off)
+  (use-package js
+    :mode ("\\.json\\'" . js-mode))
+  (add-hook 'js-mode-hook #'(lambda ()
+                            (when (equal (file-name-nondirectory (buffer-file-name)) "package.json")
+                              (setq-local js-indent-level 2))))
   (setq uniquify-buffer-name-style 'forward)
   (setq spacemacs-useless-buffers-regexp '("NOTHING IS USELESS"))
-
-  ;; flycheck
-  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
-  (setq flycheck-idle-change-delay 4)
-  )
+  (setq projectile-generic-command (concat find-program " . -type f -print0"))
+  (setq counsel-rg-base-command "rg -i --hidden --no-heading --line-number --max-columns 150 %s .")
+  (setq magit-repository-directories (list (dmaz/joindirs dmaz/eoksni-dir "work/jslearning")))
+  (setq find-program dmaz/find-program))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -352,10 +361,13 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
+ '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (vagrant-tramp vagrant hydra projectile pkg-info epl evil goto-chg undo-tree bind-key packed helm avy helm-core async popup web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode yaml-mode mmm-mode markdown-toc markdown-mode gh-md intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-pos-tip flycheck-haskell flycheck company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor string-inflection evil-goggles dired-single helm-themes helm-swoop helm-projectile helm-mode-manager helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag fuzzy company-statistics company-quickhelp pos-tip company auto-yasnippet yasnippet ace-jump-helm-line ac-ispell auto-complete darkplus-theme ws-butler winum volatile-highlights vi-tilde-fringe uuidgen toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu eval-sexp-fu highlight dumb-jump f dash s define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol aggressive-indent adaptive-wrap ace-link which-key wgrep use-package smex pcre2el macrostep ivy-hydra helm-make flx exec-path-from-shell evil-visualstar evil-escape elisp-slime-nav diminish counsel-projectile bind-map auto-compile ace-window))))
+    (white-sand-theme rebecca-theme org-mime exotica-theme ein request-deferred deferred org-category-capture dockerfile-mode docker tablist docker-tramp websocket seq indium ssass-mode vue-html-mode evil-goggles ts-comint string-inflection dired-single projectile-ripgrep ripgrep yaml-mode editorconfig fuzzy company-web web-completion-data company-statistics company-restclient know-your-http-well company-quickhelp company auto-yasnippet ac-ispell auto-complete csv-mode ledger-mode flycheck-ledger ob-restclient restclient ob-http vue-mode powershell git-commit-insert-issue bitbucket gitlab github-issues ahk-mode org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help flyspell-popup flyspell-correct-ivy flyspell-correct auto-dictionary tide typescript-mode add-node-modules-path flycheck-pos-tip pos-tip flycheck web-beautify tern livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc coffee-mode smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor zenburn-theme mmm-mode markdown-toc markdown-mode gh-md ranger zonokai-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pastels-on-dark-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme firebelly-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme evil-unimpaired ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy)))
+ '(safe-local-variable-values
+   (quote
+    ((editorconfig-exec-path . "e:/eoksni-dir/work/jslearning/command-decorator/node_modules/.bin/editorconfig.cmd")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

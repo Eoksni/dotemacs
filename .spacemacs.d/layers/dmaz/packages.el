@@ -1,40 +1,40 @@
 (defconst dmaz-packages
   '(
-    ranger
-    typescript-mode
+    ;; ranger
+    ;; typescript-mode
     ;; ts-comint
-    tide
-    git-commit-insert-issue
-    vue-mode
+    ;; tide
+    ;; git-commit-insert-issue
+    ;; vue-mode
     dired-single
-    evil
+    ;; evil
     string-inflection
     evil-goggles
     ;; indium
-    (compile :location built-in)
+    ;; (compile :location built-in)
     ))
 
-(defun dmaz/post-init-ranger ()
-  ;; https://github.com/ralesi/ranger.el/issues/156
-  ;; Fix the masks for the elisp internal implementation of ls
-  ;; (setq ranger-dired-display-mask '(t t t t t t t)
-  ;;       ranger-dired-hide-mask '(nil nil nil nil nil nil t))
-  )
+;; (defun dmaz/post-init-ranger ()
+;;   ;; https://github.com/ralesi/ranger.el/issues/156
+;;   ;; Fix the masks for the elisp internal implementation of ls
+;;   ;; (setq ranger-dired-display-mask '(t t t t t t t)
+;;   ;;       ranger-dired-hide-mask '(nil nil nil nil nil nil t))
+;;   )
 
-(defun dmaz/init-compile ()
-  (use-package compile
-    :config
-    ;; karma webpack compilation errors parsing
-    (pushnew '(karma-webpack "^.*webpack:///\\(.*\\):\\([[:digit:]]+\\):[[:digit:]]+ <- [./_[:alnum:]]+:[[:digit:]]+.*$" 1 2) compilation-error-regexp-alist-alist)
-    (pushnew 'karma-webpack compilation-error-regexp-alist)
-    ;; mocha compilation errors parsing
-    (pushnew '(mocha "^.*at .*(\\(.*\\):\\([[:digit:]]+\\):[[:digit:]]+).*$" 1 2) compilation-error-regexp-alist-alist)
-    (pushnew 'mocha compilation-error-regexp-alist)
-    )
-  )
+;; (defun dmaz/init-compile ()
+;;   (use-package compile
+;;     :config
+;;     ;; karma webpack compilation errors parsing
+;;     (pushnew '(karma-webpack "^.*webpack:///\\(.*\\):\\([[:digit:]]+\\):[[:digit:]]+ <- [./_[:alnum:]]+:[[:digit:]]+.*$" 1 2) compilation-error-regexp-alist-alist)
+;;     (pushnew 'karma-webpack compilation-error-regexp-alist)
+;;     ;; mocha compilation errors parsing
+;;     (pushnew '(mocha "^.*at .*(\\(.*\\):\\([[:digit:]]+\\):[[:digit:]]+).*$" 1 2) compilation-error-regexp-alist-alist)
+;;     (pushnew 'mocha compilation-error-regexp-alist)
+;;     )
+;;   )
 
-(defun dmaz/init-vue-mode ()
-  (use-package vue-mode))
+;; (defun dmaz/init-vue-mode ()
+;;   (use-package vue-mode))
 
 ;; (defun dmaz/init-ts-comint ()
 ;;   (use-package ts-comint :defer t)
@@ -49,34 +49,34 @@
 ;;               (local-set-key (kbd "C-c l") 'ts-load-file-and-go)))
 ;;   )
 
-(defun dmaz/pre-init-typescript-mode ()
-  (use-package typescript-mode
-    :mode "\\.js\\'"))
+;; (defun dmaz/pre-init-typescript-mode ()
+;;   (use-package typescript-mode
+;;     :mode "\\.js\\'"))
 
-(defun dmaz/post-init-tide ()
-  ;; default formatting options correspond to vscode formatting
-  (setq tide-format-options '(
-                              :insertSpaceAfterCommaDelimiter t
-                                                              :insertSpaceAfterSemicolonInForStatements t
-                                                              :insertSpaceBeforeAndAfterBinaryOperators t
-                                                              :insertSpaceAfterKeywordsInControlFlowStatements t
-                                                              :insertSpaceAfterFunctionKeywordForAnonymousFunctions t
-                                                              :insertSpaceBeforeFunctionParenthesis nil
-                                                              :insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis nil
-                                                              :insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets nil
-                                                              :insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces nil
-                                                              :insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces nil
-                                                              :placeOpenBraceOnNewLineForFunctions nil
-                                                              :placeOpenBraceOnNewLineForControlBlocks nil))
+;; (defun dmaz/post-init-tide ()
+;;   ;; default formatting options correspond to vscode formatting
+;;   (setq tide-format-options '(
+;;                               :insertSpaceAfterCommaDelimiter t
+;;                                                               :insertSpaceAfterSemicolonInForStatements t
+;;                                                               :insertSpaceBeforeAndAfterBinaryOperators t
+;;                                                               :insertSpaceAfterKeywordsInControlFlowStatements t
+;;                                                               :insertSpaceAfterFunctionKeywordForAnonymousFunctions t
+;;                                                               :insertSpaceBeforeFunctionParenthesis nil
+;;                                                               :insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis nil
+;;                                                               :insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets nil
+;;                                                               :insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces nil
+;;                                                               :insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces nil
+;;                                                               :placeOpenBraceOnNewLineForFunctions nil
+;;                                                               :placeOpenBraceOnNewLineForControlBlocks nil))
 
-  (advice-add 'tide-setup :before #'dmaz/apply-formatting-options))
+;;   (advice-add 'tide-setup :before #'dmaz/apply-formatting-options))
 
-(defun dmaz/init-git-commit-insert-issue ()
-  (use-package git-commit-insert-issue
-    :defer t)
-  (add-hook 'git-commit-mode-hook 'git-commit-insert-issue-mode)
-  (advice-add 'insert-issue--get-remote-url :around #'dmaz/insert-issue--get-remote-url)
-  (advice-add 'git-commit-insert-issue-github-issues-format :around #'dmaz/git-commit-insert-issue-github-issues-format))
+;; (defun dmaz/init-git-commit-insert-issue ()
+;;   (use-package git-commit-insert-issue
+;;     :defer t)
+;;   (add-hook 'git-commit-mode-hook 'git-commit-insert-issue-mode)
+;;   (advice-add 'insert-issue--get-remote-url :around #'dmaz/insert-issue--get-remote-url)
+;;   (advice-add 'git-commit-insert-issue-github-issues-format :around #'dmaz/git-commit-insert-issue-github-issues-format))
 
 
 (defun dmaz/init-dired-single ()
@@ -96,9 +96,9 @@
     )
   )
 
-(defun dmaz/post-init-evil ()
-  (spacemacs/set-leader-keys
-    "os" #'dmaz/tag-word-or-region))
+;; (defun dmaz/post-init-evil ()
+;;   (spacemacs/set-leader-keys
+;;     "os" #'dmaz/tag-word-or-region))
 
 (defun dmaz/init-string-inflection ()
   (use-package string-inflection
