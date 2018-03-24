@@ -56,3 +56,7 @@ Install [Everything](https://www.voidtools.com/ru-ru/) or
 ```bat
 choco install everything
 ```
+
+#### quelpa
+
+https://github.com/quelpa/quelpa#windows-instructions
