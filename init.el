@@ -10,7 +10,9 @@
 ;;   (make-directory server-auth-dir t))
 ;; (ignore-errors (server-start))
 
-(let ((new-user-emacs-dir (file-name-directory load-file-name)))
+(let ((new-user-emacs-dir (file-name-directory (file-truename load-file-name))))
+  (message "qwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwer")
+  (message (file-truename load-file-name))
   (when new-user-emacs-dir
     (setq user-emacs-directory new-user-emacs-dir)))
 

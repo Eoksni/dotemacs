@@ -268,9 +268,9 @@ toggle between real end and logical end of the buffer."
 ;;     (let ((org-clock-out-switch-to-state "DONE"))
 ;;       (org-clock-out))))
 
-;; (defun dmaz/open-cmd-here ()
-;;   (interactive)
-;;   (let ((process-connection-type nil)) (start-process "" nil "cmd" "/C" "start")))
+(defun dmaz/open-cmd-here ()
+  (interactive)
+  (let ((process-connection-type nil)) (start-process "" nil "cmd" "/C" "start")))
 
 ;; (defun dmaz-format-hours (hours)
 ;;   (format "%d:%02d" (truncate hours) (* 60 (- hours (truncate hours))))
