@@ -366,6 +366,7 @@ you should place your code here."
   (add-hook 'js2-init-hook
             #'(lambda ()
                (setq next-error-function 'flycheck-next-error)
+               (setq-local js-switch-indent-offset (string-to-number (gethash 'indent_size (editorconfig-get-properties))))
                )
             )
   )
