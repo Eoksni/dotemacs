@@ -64,3 +64,9 @@ https://github.com/quelpa/quelpa#windows-instructions
 #### javascript language server
 
 npm i -g javascript-typescript-langserver
+
+<!-- #### all-the-icons -->
+
+<!-- ``` -->
+<!-- M-x all-the-icons-install-fonts -->
+<!-- ``` -->

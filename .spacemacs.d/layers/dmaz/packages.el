@@ -12,6 +12,7 @@
     evil-goggles
     ;; indium
     ;; (compile :location built-in)
+    quickrun
     ))
 
 ;; (defun dmaz/post-init-ranger ()
@@ -108,7 +109,9 @@
 (defun dmaz/init-evil-goggles ()
   (use-package evil-goggles
     :config
-    (evil-goggles-mode)))
+    (evil-goggles-mode)
+    (setq evil-goggles-pulse nil) ; the visual effect is nice, but causes some flickering of the cursor (at least on windows), so I disable it
+    ))
 
 ;; (defun dmaz/init-indium ()
 ;;   (use-package indium
@@ -117,3 +120,16 @@
 ;;     )
 ;;   (setq indium-exec-path-setup t) ;; some issues with manipulation exec-path due to spaces in the Program Files
 ;;   )
+
+(defun dmaz/init-quickrun ()
+  (use-package quickrun
+    :commands (quickrun quickrun-region quickrun-replace-region)
+    :defer t
+    :init
+    (spacemacs/set-leader-keys "oqq" #'quickrun)
+    (spacemacs/set-leader-keys "oqr" #'quickrun-region)
+    (spacemacs/set-leader-keys "oqR" #'quickrun-replace-region)
+    :config
+    (push '("*quickrun*" :dedicated t :position bottom :stick t :noselect nil) popwin:special-display-config)
+    )
+  )
