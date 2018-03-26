@@ -60,3 +60,7 @@ choco install everything
 #### quelpa
 
 https://github.com/quelpa/quelpa#windows-instructions
+
+#### javascript language server
+
+npm i -g javascript-typescript-langserver
