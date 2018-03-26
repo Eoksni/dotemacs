@@ -11,8 +11,6 @@
 ;; (ignore-errors (server-start))
 
 (let ((new-user-emacs-dir (file-name-directory (file-truename load-file-name))))
-  (message "qwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwerqwer")
-  (message (file-truename load-file-name))
   (when new-user-emacs-dir
     (setq user-emacs-directory new-user-emacs-dir)))
 
@@ -22,13 +20,26 @@
   (benchmark-init/activate))
 
 ;; ++spacemacs initialization
-(setq package-user-dir (concat user-emacs-directory "elpa/"))
+(if (getenv "SPACEMACSDIR")
+    (if (file-name-absolute-p (getenv "SPACEMACSDIR"))
+        nil
+      (setenv "SPACEMACSDIR" (concat user-emacs-directory (getenv "SPACEMACSDIR")))
+      )
+  (setenv "SPACEMACSDIR" (concat user-emacs-directory ".spacemacs.d/"))
+  )
+(let* (
+       (spacemacsdir (directory-file-name (getenv "SPACEMACSDIR")))
+       (parentdir (file-name-directory spacemacsdir))
+       (spacemacsdirname (file-name-nondirectory spacemacsdir))
+       (elpadirname (concat spacemacsdirname "-elpa/"))
+       )
+  (setq package-user-dir (concat parentdir elpadirname))
+  )
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
  ("org" . "http://orgmode.org/elpa/")
  ("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 (setq spacemacs-start-directory (concat user-emacs-directory "spacemacs/"))
-(setenv "SPACEMACSDIR" (concat user-emacs-directory ".spacemacs.d/"))
 (load-file (concat spacemacs-start-directory "init.el"))
 ;; --spacemacs initialization
 

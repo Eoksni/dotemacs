@@ -5,7 +5,7 @@
 /bookmarks
 /history
 /org-clock-save.el
-/elpa/
+/*elpa/
 /.cache/
 /session.*
 /eshell

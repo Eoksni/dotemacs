@@ -279,3 +279,10 @@ toggle between real end and logical end of the buffer."
 ;; (defun dmaz-format-hours-round (hours)
 ;;   (format "%d" (round hours))
 ;;   )
+
+(defun dmaz/js2-init-hook ()
+  (setq next-error-function 'flycheck-next-error)
+  (setq-local js-switch-indent-offset (condition-case nil
+                                          (string-to-number (gethash 'indent_size (editorconfig-get-properties)))
+                                        (error js-indent-level)))
+  )
