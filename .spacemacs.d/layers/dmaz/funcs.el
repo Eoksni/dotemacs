@@ -286,3 +286,66 @@ toggle between real end and logical end of the buffer."
                                           (string-to-number (gethash 'indent_size (editorconfig-get-properties)))
                                         (error js-indent-level)))
   )
+
+(defun dmaz/editorconfig-visit-or-create ()
+  "Creates default .editorconfig file in the root of current project
+   (or in current directory if not in a project). If already exists, visits this file."
+  (interactive)
+  (let* (
+         (rootdir (condition-case nil
+                      (projectile-project-root)
+                    (error default-directory)
+                    ))
+         (editorconfigfile (concat rootdir ".editorconfig"))
+         (needcreate (not (file-exists-p editorconfigfile)))
+         )
+    (find-file editorconfigfile)
+    (when needcreate
+      (insert "
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+"))))
+
+(defun dmaz/ternproject-visit-or-create ()
+  "Creates default .tern-project file in the root of current project
+   (or in current directory if not in a project). If already exists, visits this file."
+  (interactive)
+  (let* (
+         (rootdir (condition-case nil
+                      (projectile-project-root)
+                    (error default-directory)
+                    ))
+         (configfile (concat rootdir ".tern-project"))
+         (needcreate (not (file-exists-p configfile)))
+         )
+    (find-file configfile)
+    (when needcreate
+      (insert "
+{
+  \"plugins\": {
+    \"node\": {}
+  }
+}
+
+// {
+//   \"libs\": [
+//     \"browser\",
+//     \"jquery\"
+//   ],
+//   \"loadEagerly\": [
+//     \"modules/*.js\",
+//     \"models/*.js\",
+//     \"modals/*.js\",
+//     \"page/*.js\",
+//     \"*.js\"
+//   ]
+// }
+"))))

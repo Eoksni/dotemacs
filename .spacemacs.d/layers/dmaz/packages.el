@@ -10,9 +10,11 @@
     ;; evil
     string-inflection
     evil-goggles
-    ;; indium
     ;; (compile :location built-in)
     quickrun
+    indium
+    ;; spaceline-all-the-icons
+    mocha
     ))
 
 ;; (defun dmaz/post-init-ranger ()
@@ -113,14 +115,6 @@
     (setq evil-goggles-pulse nil) ; the visual effect is nice, but causes some flickering of the cursor (at least on windows), so I disable it
     ))
 
-;; (defun dmaz/init-indium ()
-;;   (use-package indium
-;;     :commands (indium-run-node)
-;;     :defer t
-;;     )
-;;   (setq indium-exec-path-setup t) ;; some issues with manipulation exec-path due to spaces in the Program Files
-;;   )
-
 (defun dmaz/init-quickrun ()
   (use-package quickrun
     :commands (quickrun quickrun-region quickrun-replace-region)
@@ -131,5 +125,67 @@
     (spacemacs/set-leader-keys "oqR" #'quickrun-replace-region)
     :config
     (push '("*quickrun*" :dedicated t :position bottom :stick t :noselect nil) popwin:special-display-config)
+
+    (quickrun-add-command "javascript/node/print"
+      '((:command . "node")
+        (:exec . "%c -e \"const fs = require('fs'); const content = fs.readFileSync('%s', {encoding: 'utf8'}); console.log(eval(content))\"")
+        (:description "Automatic print of evaluated expression")
+        )
+      :default "javascript")
+    )
+  )
+
+(defun dmaz/init-indium ()
+  (use-package indium
+    :commands (indium-run-node)
+    :defer t
+    :config
+    )
+  )
+
+;; (defun dmaz/init-spaceline-all-the-icons ()
+;;   (use-package spaceline-all-the-icons
+;;     :after (spaceline)
+;;     :config
+;;     (spaceline-all-the-icons-theme))
+;;   )
+
+(defun dmaz/init-mocha ()
+  (use-package mocha
+    :defer t
+    :init
+    (spacemacs/set-leader-keys "oma" #'mocha-test-at-point)
+    (spacemacs/set-leader-keys "omp" #'mocha-test-project)
+    (spacemacs/set-leader-keys "omf" #'mocha-test-file)
+    :config
+    (setq mocha-command ".\\node_modules\\.bin\\mocha.cmd")
+    ;; (setq mocha-command "yarn test ")
+    (setq mocha-which-node "")
+    (push '("*mocha tests*" :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
+
+    ;; HACK: waiting for https://github.com/scottaj/mocha.el/issues/61
+    (defun mocha-generate-command (debug &optional mocha-file test)
+      "The test command to run.
+
+If DEBUG is true, then make this a debug command.
+
+If MOCHA-FILE is specified run just that file otherwise run
+MOCHA-PROJECT-TEST-DIRECTORY.
+
+IF TEST is specified run mocha with a grep for just that test."
+      (let* ((path (or mocha-file mocha-project-test-directory))
+             (target (if test (concat "--fgrep \"" test "\" ") ""))
+             (node-command (concat mocha-which-node (if debug (concat " --debug=" mocha-debug-port) "")))
+             (options (concat mocha-options (if debug " -t 21600000")))
+             (options (concat options (concat " --reporter " mocha-reporter)))
+             (opts-file (mocha-opts-file path)))
+        (when opts-file
+          (setq options (concat options (if opts-file (concat " --opts " opts-file)))))
+        (concat mocha-environment-variables " "
+                node-command " "
+                mocha-command " "
+                options " "
+                target
+                path)))
     )
   )
