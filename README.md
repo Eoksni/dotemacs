@@ -2,6 +2,12 @@
 
 This is my dotemacs - configuration directory for Emacs. Super Cool!
 
+## Prerequisites
+
+```
+npm install -g tern
+```
+
 ## Prerequisites (Windows 10)
 
 For search
