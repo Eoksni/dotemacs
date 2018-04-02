@@ -74,6 +74,7 @@ values."
    dotspacemacs-additional-packages '(
                                       ;; all-the-icons
                                       editorconfig
+                                      vue-mode
                                       ;; (darkplus-theme :location (recipe :fetcher github :repo "dunstontc/darkplus-emacs") :min-version "1")
                                       )
    ;; A list of packages that cannot be updated.
@@ -372,16 +373,34 @@ you should place your code here."
   (add-hook 'js2-init-hook #'dmaz/js2-init-hook)
 
   ;; elfeed
+  (use-package elfeed
+    :defer t
+    :config
+    (define-key elfeed-search-mode-map (kbd "R") #'dmaz/elfeed-mark-all-as-read)
+    )
   (use-package elfeed-org
     :after (elfeed)
     :config
     (elfeed-org)
     (setq rmh-elfeed-org-files (list (concat dmaz/syncthing-dir "notes/elfeed.org")))
     )
-  (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
+  (use-package elfeed-goodies
+    :after (elfeed)
+    :config
+    (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
+    (elfeed-goodies/setup)
+    )
 
   ;; all-the-icons
   ;; (setq neo-theme 'icons)
+
+  ;; projectile
+  (use-package projectile
+    :defer t
+    :config
+    (add-to-list 'projectile-globally-ignored-directories "node_modules")
+    (add-to-list 'projectile-globally-ignored-files "yarn.lock")
+    )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

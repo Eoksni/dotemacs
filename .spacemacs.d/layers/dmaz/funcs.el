@@ -353,3 +353,8 @@ indent_size = 2
 (defun dmaz/focus-frame (frame)
   (select-frame-set-input-focus frame)
   )
+
+(defun dmaz/elfeed-mark-all-as-read ()
+  (interactive)
+  (mark-whole-buffer)
+  (elfeed-search-untag-all-unread))

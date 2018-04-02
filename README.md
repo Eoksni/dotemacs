@@ -5,7 +5,7 @@ This is my dotemacs - configuration directory for Emacs. Super Cool!
 ## Prerequisites
 
 ```
-npm install -g tern
+npm install -g tern eslint eslint-plugin-es5
 ```
 
 ## Prerequisites (Windows 10)
