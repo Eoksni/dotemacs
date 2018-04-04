@@ -1,3 +1,6 @@
+(spacemacs|defvar-company-backends vue-mode)
+(spacemacs|define-jump-handlers vue-mode)
+
 (defvar dmaz/eoksni-dir "E:\\eoksni-dir\\")
 (defvar dmaz/dropbox-dir "F:\\Dropbox\\")
 (defvar dmaz/syncthing-dir "F:\\sync\\")

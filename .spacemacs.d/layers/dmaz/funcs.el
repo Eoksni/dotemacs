@@ -287,6 +287,16 @@ toggle between real end and logical end of the buffer."
                                         (error js-indent-level)))
   )
 
+(defun dmaz/vue-mode-hook ()
+  (let ((indent-size (condition-case nil
+                        (string-to-number (gethash 'indent_size (editorconfig-get-properties)))
+                      (error 2))))
+    (setq-local js-switch-indent-offset indent-size)
+    (setq-local js-indent-level indent-size)
+    (setq-local css-indent-offset indent-size)
+    )
+  )
+
 (defun dmaz/editorconfig-visit-or-create ()
   "Creates default .editorconfig file in the root of current project
    (or in current directory if not in a project). If already exists, visits this file."
@@ -312,6 +322,31 @@ end_of_line = lf
 insert_final_newline = true
 indent_style = space
 indent_size = 2
+
+# it gets rewritten by tools in this format
+[package.json]
+indent_style = space
+indent_size = 2
+"))))
+
+(defun dmaz/stylelint-visit-or-create ()
+  "Creates default .stylelint.json file in the root of current project
+   (or in current directory if not in a project). If already exists, visits this file."
+  (interactive)
+  (let* (
+         (rootdir (condition-case nil
+                      (projectile-project-root)
+                    (error default-directory)
+                    ))
+         (configfile (concat rootdir ".stylelintrc.json"))
+         (needcreate (not (file-exists-p configfile)))
+         )
+    (find-file configfile)
+    (when needcreate
+      (insert "
+{
+  \"extends\": \"stylelint-config-standard\"
+}
 "))))
 
 (defun dmaz/ternproject-visit-or-create ()

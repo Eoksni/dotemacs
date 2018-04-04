@@ -15,7 +15,12 @@
     indium
     ;; spaceline-all-the-icons
     mocha
+    js2-mode
+    js-mode
+    tern
     vue-mode
+    company
+    (company-tern :toggle (configuration-layer/package-usedp 'company))
     ))
 
 ;; (defun dmaz/post-init-ranger ()
@@ -191,10 +196,56 @@ IF TEST is specified run mocha with a grep for just that test."
     )
   )
 
+(defun dmaz/post-init-company ()
+  (spacemacs|add-company-hook vue-mode)
+  )
+
+(defun dmaz/post-init-company-tern ()
+  (use-package company-tern
+    :defer t
+    :init
+    (push 'company-tern company-backends-vue-mode)
+    (push 'company-css company-backends-vue-mode)
+    (push 'company-web-html company-backends-vue-mode)
+    )
+  )
+
 (defun dmaz/init-vue-mode ()
   (use-package vue-mode
     :defer t
     :config
+    (spacemacs/add-flycheck-hook 'vue-mode)
+    (add-hook 'vue-mode-hook #'tern-mode)
+    (add-hook 'vue-mode-hook #'dmaz/vue-mode-hook)
+
+    ;; maybe not needed (spacemacs/add-flycheck-hook 'js-mode)
     (setq vue-html-extra-indent 2)
+    )
+  )
+
+(defun dmaz/post-init-js2-mode ()
+  (use-package js2-mode
+    :defer t
+    :config
+    (setq js2-mode-show-strict-warnings nil)
+    (setq js2-mode-show-parse-errors nil)
+    (add-hook 'js2-init-hook #'dmaz/js2-init-hook)
+    )
+  )
+
+(defun dmaz/post-init-js-mode ()
+  (use-package js-mode
+    :defer t
+    :config
+    ;; (add-hook 'js-mode-hook #'dmaz/js2-js-init-hook)
+    )
+  )
+
+(defun dmaz/post-init-tern ()
+  (use-package tern
+    :defer t
+    ;; :init (add-hook 'js-mode-hook 'tern-mode)
+    :config
+    ;; (spacemacs//set-tern-key-bindings 'js-mode)
     )
   )

@@ -38,7 +38,6 @@ values."
      windows-scripts
      php
      html
-     javascript
      yaml
      markdown
      ;; ----------------------------------------------------------------
@@ -355,7 +354,7 @@ you should place your code here."
 
   ;; flycheck
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
-  (setq flycheck-idle-change-delay 4)
+  (setq flycheck-idle-change-delay 1)
 
   ;; missing keybindings
   (spacemacs/set-leader-keys "sgp" #'spacemacs/helm-project-do-grep)
@@ -366,11 +365,6 @@ you should place your code here."
     :ensure t
     :config
     (editorconfig-mode 1))
-
-  ;; javascript
-  (setq js2-mode-show-strict-warnings nil)
-  (setq js2-mode-show-parse-errors nil)
-  (add-hook 'js2-init-hook #'dmaz/js2-init-hook)
 
   ;; elfeed
   (use-package elfeed
