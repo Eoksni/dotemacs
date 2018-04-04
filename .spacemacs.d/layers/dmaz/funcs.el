@@ -358,3 +358,12 @@ indent_size = 2
   (interactive)
   (mark-whole-buffer)
   (elfeed-search-untag-all-unread))
+
+(defun dmaz/elfeed-scroll ()
+  (interactive)
+  (message "dmaz/elfeed-scroll")
+  (condition-case nil
+      (scroll-up-command)
+    (error (elfeed-goodies/split-show-next))
+    )
+  )

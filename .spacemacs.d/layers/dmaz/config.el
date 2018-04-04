@@ -2,6 +2,7 @@
 (defvar dmaz/dropbox-dir "F:\\Dropbox\\")
 (defvar dmaz/syncthing-dir "F:\\sync\\")
 (defvar dmaz/find-program "C:\\\"Program Files (x86)\"\\GnuWin32\\bin\\find.exe")
+(defvar dmaz/mocha-command ".\\node_modules\\.bin\\mocha.cmd")
 (defvar dmaz/mplayer-path (dmaz/joindirs dmaz/eoksni-dir "portable\\mplayer-svn-37931\\mplayer.exe"))
 
 (defun dmaz/config-eoksni-win8 ()
@@ -20,6 +21,7 @@
   (setq dmaz/find-program "/usr/bin/find")
   (setq dmaz/mplayer-path "mplayer")
   (setq dmaz/exercise-file-path "~/bin/exercise.sh")
+  (setq dmaz/mocha-command "mocha")
   )
 
 ;; (setq-default flyspell-generic-check-word-predicate

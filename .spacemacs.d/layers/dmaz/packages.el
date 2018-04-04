@@ -15,6 +15,7 @@
     indium
     ;; spaceline-all-the-icons
     mocha
+    vue-mode
     ))
 
 ;; (defun dmaz/post-init-ranger ()
@@ -158,7 +159,7 @@
     (spacemacs/set-leader-keys "omp" #'mocha-test-project)
     (spacemacs/set-leader-keys "omf" #'mocha-test-file)
     :config
-    (setq mocha-command ".\\node_modules\\.bin\\mocha.cmd")
+    (setq mocha-command dmaz/mocha-command)
     ;; (setq mocha-command "yarn test ")
     (setq mocha-which-node "")
     (push '("*mocha tests*" :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
@@ -187,5 +188,13 @@ IF TEST is specified run mocha with a grep for just that test."
                 options " "
                 target
                 path)))
+    )
+  )
+
+(defun dmaz/init-vue-mode ()
+  (use-package vue-mode
+    :defer t
+    :config
+    (setq vue-html-extra-indent 2)
     )
   )
