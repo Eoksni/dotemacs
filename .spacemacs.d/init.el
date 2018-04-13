@@ -357,8 +357,9 @@ you should place your code here."
   (setq flycheck-idle-change-delay 1)
 
   ;; missing keybindings
-  (spacemacs/set-leader-keys "sgp" #'spacemacs/helm-project-do-grep)
-  (spacemacs/set-leader-keys "sgP" #'spacemacs/helm-project-do-grep-region-or-symbol)
+  (spacemacs/set-leader-keys "sgp" #'helm-grep-do-git-grep)
+  ;; project grep works really weird
+  ;; (spacemacs/set-leader-keys "sgp" #'spacemacs/helm-project-do-grep)
 
   ;; editorconfig
   (use-package editorconfig
@@ -394,7 +395,9 @@ you should place your code here."
     :defer t
     :config
     (add-to-list 'projectile-globally-ignored-directories "node_modules")
+    (add-to-list 'projectile-globally-ignored-directories "dist")
     (add-to-list 'projectile-globally-ignored-files "yarn.lock")
+    (add-to-list 'projectile-globally-ignored-files "bundle.js")
     )
   )
 
@@ -406,6 +409,7 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
+ '(magit-diff-refine-hunk t)
  '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
  '(magit-merge-arguments (quote ("--no-ff")))
  '(package-selected-packages
