@@ -24,7 +24,7 @@
   (setq dmaz/find-program "/usr/bin/find")
   (setq dmaz/mplayer-path "mplayer")
   (setq dmaz/exercise-file-path "~/bin/exercise.sh")
-  (setq dmaz/mocha-command "mocha")
+  (setq dmaz/mocha-command "yarn test")
   )
 
 ;; (setq-default flyspell-generic-check-word-predicate

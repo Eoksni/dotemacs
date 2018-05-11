@@ -410,7 +410,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(magit-diff-refine-hunk t)
- '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
+ '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
  '(magit-merge-arguments (quote ("--no-ff")))
  '(package-selected-packages
    (quote
